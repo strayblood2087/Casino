@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vegas Virtual Hub - High-End Neon Casino</title>
+    <title>Casino</title>
 
     <!-- 🔥 FIREBASE SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -46,7 +46,7 @@
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .animate-toast { animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes cylinderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(1080deg); } }
-        .spinning-cylinder { animation: cylinderSpin 1.2s cubic-bezier(0.15, 0.85, 0.35, 1.2) forwards; }
+        .spinning-cylinder { animation: cylinderSpin 1.2s cubic-bezier(0.4, 0.85, 0.35, 1.2) forwards; }
         @keyframes pulseRed { 0%, 100% { box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); } 50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); } }
         .allin-button.pulse { animation: pulseRed 2s ease-in-out infinite; }
     </style>
@@ -60,8 +60,8 @@
                     <i class="fa-solid fa-crown text-2xl font-serif-gold"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black font-serif-gold tracking-wider">VEGAS VIRTUAL</h1>
-                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Luxe Hub & Casino Prestige</p>
+                    <h1 class="text-xl font-black font-serif-gold tracking-wider">CASINO VIRTUAL</h1>
+                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Casino Prestige</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -107,7 +107,7 @@
             <div class="relative bg-gradient-to-r from-amber-950/40 via-casino-panel to-casino-card rounded-3xl p-6 sm:p-8 border border-gold/30 gold-border overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-3 z-10 text-center md:text-left max-w-xl">
                     <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><i class="fa-solid fa-star text-gold text-[10px]"></i> Prestige Edition</span>
-                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">VEGAS VIRTUAL HUB</h2>
+                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">CASINO VIRTUAL HUB</h2>
                     <p class="text-sm text-gray-300 leading-relaxed">Bienvenue dans l'expérience ultime de casino virtuel. Misez virtuellement sans aucun risque d'argent réel, gagnez de l'XP et débloquez les plus hauts multiplicateurs !</p>
                     <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
                         <button onclick="switchTab('roulette')" class="px-6 py-3 gold-button rounded-xl text-sm uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-play"></i> Jouer Maintenant</button>
@@ -477,8 +477,42 @@
                     <div id="authCurrentPseudo" class="text-lg font-extrabold text-gold">Invité_xxxxx</div>
                     <div id="authCurrentEmail" class="text-xs text-gray-400">Mode anonyme</div>
                 </div>
+
+                <!-- ✅ NOUVEAU : bouton reset progression -->
+                <button onclick="confirmResetProfile()" class="w-full py-3 bg-amber-950/60 hover:bg-amber-900 border border-amber-500/40 text-amber-200 font-bold rounded-2xl text-xs uppercase transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Réinitialiser ma progression
+                </button>
+
                 <button onclick="logoutUser()" class="w-full py-3 bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-200 font-bold rounded-2xl text-xs uppercase transition">
                     <i class="fa-solid fa-sign-out-alt mr-1"></i> Se déconnecter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE RESET CONFIRMATION -->
+    <div id="resetModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-[65] flex items-center justify-center p-4 hidden">
+        <div class="bg-casino-card border border-red-500/60 rounded-3xl p-6 max-w-sm w-full space-y-5 shadow-2xl">
+            <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 border-2 border-red-500/50 flex items-center justify-center text-red-400 text-3xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="text-center space-y-2">
+                <h3 class="text-lg font-bold text-red-300">⚠️ Réinitialisation totale</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">Tout va être remis à zéro :</p>
+                <div class="bg-casino-dark p-3 rounded-xl border border-casino-border text-left space-y-1 mt-2">
+                    <div class="flex justify-between text-xs"><span class="text-gray-400">Solde</span><span class="font-bold text-gold">1 000 jetons</span></div>
+                    <div class="flex justify-between text-xs"><span class="text-gray-400">XP</span><span class="font-bold text-gold">0</span></div>
+                    <div class="flex justify-between text-xs"><span class="text-gray-400">Parties jouées</span><span class="font-bold text-gold">0</span></div>
+                    <div class="flex justify-between text-xs"><span class="text-gray-400">Plus gros gain</span><span class="font-bold text-gold">0</span></div>
+                </div>
+                <p class="text-[10px] text-red-400/80 pt-2">Cette action est irréversible.</p>
+            </div>
+            <div class="space-y-2">
+                <button onclick="executeResetProfile()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-800 hover:brightness-110 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider shadow-lg">
+                    🔥 Confirmer le reset
+                </button>
+                <button onclick="closeResetModal()" class="w-full py-3 bg-casino-dark hover:bg-casino-border border border-casino-border text-gray-300 font-bold rounded-2xl text-xs uppercase transition">
+                    Annuler
                 </button>
             </div>
         </div>
@@ -1458,7 +1492,6 @@
         let leaderboardCache = { xp: null, balance: null, maxWin: null, ts: 0 };
         let currentLbTab = 'xp';
         let currentAuthMode = 'login';
-        // ✅ FIX : flag pour empêcher l'auto-création d'invité pendant une transition auth
         let suppressAnonSignIn = false;
 
         // -------- SYNC DEBOUNCE --------
@@ -1510,7 +1543,6 @@
         };
 
         // -------- AUTH STATE --------
-        // ✅ FIX : empêche l'auto-anonyme pendant une transition et attend un délai
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 currentUser = user;
@@ -1522,13 +1554,10 @@
                     console.error('Erreur profil:', e);
                 }
             } else {
-                // Ne pas créer d'invité pendant une transition (login email en cours)
                 if (suppressAnonSignIn) {
                     console.log('Anon sign-in supprimé (transition en cours)');
                     return;
                 }
-
-                // Petit délai pour laisser Firebase finir de restaurer une éventuelle session
                 setTimeout(async () => {
                     if (!auth.currentUser && !suppressAnonSignIn) {
                         try {
@@ -1708,7 +1737,6 @@
 
             const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
-            // ✅ FIX : bloque l'auto-anonyme pendant le lien de compte
             suppressAnonSignIn = true;
             try {
                 await currentUser.linkWithCredential(credential);
@@ -1744,7 +1772,6 @@
             showToast(`Bienvenue ${pseudo} ! Compte créé.`, "win");
         }
 
-        // ✅ FIX : connexion simplifiée + flag anti-race-condition
         async function loginWithEmail(email, password) {
             suppressAnonSignIn = true;
             try {
@@ -1776,6 +1803,64 @@
                 'auth/invalid-login-credentials': "Email ou mot de passe incorrect."
             };
             return map[code];
+        }
+
+        /* ============================================================
+           🔄 RESET PROFILE
+           ============================================================ */
+        function confirmResetProfile() {
+            document.getElementById('resetModal').classList.remove('hidden');
+        }
+
+        function closeResetModal() {
+            document.getElementById('resetModal').classList.add('hidden');
+        }
+
+        async function executeResetProfile() {
+            closeResetModal();
+
+            // Reset local d'abord
+            state.balance = 1000;
+            state.xp = 0;
+            state.gamesPlayed = 0;
+            state.maxWin = 0;
+            state.lastBonus = 0;
+
+            localStorage.setItem('vvh_balance', 1000);
+            localStorage.setItem('vvh_xp', 0);
+            localStorage.setItem('vvh_games_played', 0);
+            localStorage.setItem('vvh_max_win', 0);
+            localStorage.removeItem('vvh_bonus_time');
+
+            renderUserStats();
+            checkRefill();
+
+            // Reset cloud si connecté
+            if (currentUser && userProfile) {
+                try {
+                    await db.collection('users').doc(currentUser.uid).update({
+                        balance: 1000,
+                        xp: 0,
+                        gamesPlayed: 0,
+                        maxWin: 0,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    userProfile.balance = 1000;
+                    userProfile.xp = 0;
+                    userProfile.gamesPlayed = 0;
+                    userProfile.maxWin = 0;
+                    // Invalide le cache du classement
+                    leaderboardCache = { xp: null, balance: null, maxWin: null, ts: 0 };
+                    showToast("✅ Progression réinitialisée (local + cloud)", "win");
+                } catch (e) {
+                    console.error('Reset cloud error:', e);
+                    showToast("Reset local OK, mais erreur cloud : " + e.message, "error");
+                }
+            } else {
+                showToast("✅ Progression locale réinitialisée", "win");
+            }
+
+            closeAuthModal();
         }
 
         // -------- LEADERBOARD --------
