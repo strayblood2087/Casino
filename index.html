@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casino</title>
+
+    <!-- 🔥 FIREBASE SDK (compat, à charger AVANT tout autre script) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -29,7 +35,6 @@
         .gold-button:active:not(:disabled) { transform: translateY(0); }
         .allin-button { background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: #fff; font-weight: 800; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); border: 1px solid rgba(239, 68, 68, 0.5); }
         .allin-button:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); transform: translateY(-2px); }
-        .allin-button:active:not(:disabled) { transform: translateY(0); }
         .allin-button:disabled { opacity: 0.4; cursor: not-allowed; }
         .lobby-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .lobby-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px -10px rgba(255, 215, 0, 0.2); }
@@ -55,18 +60,27 @@
                     <i class="fa-solid fa-crown text-2xl font-serif-gold"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black font-serif-gold tracking-wider">VEGAS VIRTUAL</h1>
-                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Luxe Hub & Casino Prestige</p>
+                    <h1 class="text-xl font-black font-serif-gold tracking-wider">CASINO VIRTUAL</h1>
+                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Casino Prestige</p>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2">
                 <div class="bg-casino-dark px-4 py-2 rounded-xl border border-gold/40 flex items-center gap-2.5 shadow-inner">
                     <i class="fa-solid fa-coins text-gold text-lg animate-pulse"></i>
                     <span id="userBalance" class="font-extrabold text-xl text-yellow-400 tracking-wide">1,000</span>
-                    <span class="text-[10px] text-gray-400 font-bold">JETONS</span>
+                    <span class="text-[10px] text-gray-400 font-bold hidden sm:inline">JETONS</span>
+                    <i id="syncIcon" class="fa-solid fa-cloud text-[10px] text-gray-600 ml-1" title="Sync cloud"></i>
                 </div>
                 <button id="refillBtn" onclick="triggerRefillModal()" class="hidden px-3 py-2 text-xs bg-red-950/80 hover:bg-red-900 border border-red-500/60 rounded-xl text-red-200 transition font-bold animate-pulse">
                     <i class="fa-solid fa-hand-holding-dollar mr-1"></i> Secours
+                </button>
+                <button onclick="openLeaderboard()" class="px-3 py-2 bg-casino-card hover:bg-casino-border border border-casino-border rounded-xl text-amber-400 transition font-bold text-xs flex items-center gap-2" title="Classement">
+                    <i class="fa-solid fa-trophy text-lg"></i>
+                    <span class="hidden sm:inline">Rang</span>
+                </button>
+                <button id="authBtn" onclick="openAuthModal()" class="px-3 py-2 bg-casino-card hover:bg-casino-border border border-casino-border rounded-xl text-gold transition font-bold text-xs flex items-center gap-2" title="Compte">
+                    <i class="fa-solid fa-user-circle text-lg"></i>
+                    <span id="authBtnText" class="hidden sm:inline">Connexion</span>
                 </button>
                 <button id="soundToggleBtn" onclick="toggleSound()" class="p-2.5 bg-casino-card hover:bg-casino-border border border-casino-border rounded-xl text-gold transition" title="Activer/Désactiver le son">
                     <i id="soundIcon" class="fa-solid fa-volume-high text-lg"></i>
@@ -81,7 +95,7 @@
             <button onclick="switchTab('roulette')" id="tab-roulette" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne</button>
             <button onclick="switchTab('plinko')" id="tab-plinko" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-network-wired text-purple-400"></i> Plinko</button>
             <button onclick="switchTab('russian')" id="tab-russian" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-crosshairs text-red-500"></i> Barillet Russe</button>
-            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-cubes text-yellow-400"></i> Slots Néon</button>
+            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-cubes text-yellow-400"></i> Slots</button>
             <button onclick="switchTab('blackjack')" id="tab-blackjack" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21</button>
             <button onclick="switchTab('poker')" id="tab-poker" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-clone text-blue-400"></i> Video Poker</button>
         </div>
@@ -93,7 +107,7 @@
             <div class="relative bg-gradient-to-r from-amber-950/40 via-casino-panel to-casino-card rounded-3xl p-6 sm:p-8 border border-gold/30 gold-border overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-3 z-10 text-center md:text-left max-w-xl">
                     <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><i class="fa-solid fa-star text-gold text-[10px]"></i> Prestige Edition</span>
-                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">VEGAS VIRTUAL HUB</h2>
+                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">CASINO VIRTUAL HUB</h2>
                     <p class="text-sm text-gray-300 leading-relaxed">Bienvenue dans l'expérience ultime de casino virtuel. Misez virtuellement sans aucun risque d'argent réel, gagnez de l'XP et débloquez les plus hauts multiplicateurs !</p>
                     <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
                         <button onclick="switchTab('roulette')" class="px-6 py-3 gold-button rounded-xl text-sm uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-play"></i> Jouer Maintenant</button>
@@ -417,8 +431,84 @@
 
     </main>
 
-    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[70] flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
+    <!-- MODALE AUTH -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
+        <div class="bg-casino-card border border-gold/40 rounded-3xl p-6 max-w-sm w-full space-y-5 gold-border shadow-2xl">
+            <div class="flex items-center justify-between border-b border-casino-border/80 pb-3">
+                <h3 class="text-lg font-bold font-serif-gold flex items-center gap-2">
+                    <i class="fa-solid fa-user-circle text-gold"></i> <span id="authModalTitle">Connexion</span>
+                </h3>
+                <button onclick="closeAuthModal()" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div id="authError" class="hidden bg-red-950/60 border border-red-500/50 text-red-200 text-xs font-bold px-3 py-2 rounded-xl"></div>
+
+            <div id="authFormSection" class="space-y-3">
+                <div class="flex gap-2 bg-casino-dark p-1 rounded-xl border border-casino-border">
+                    <button id="authTabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg text-xs font-bold transition bg-gold text-black">Connexion</button>
+                    <button id="authTabSignup" onclick="switchAuthTab('signup')" class="flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400">Créer un compte</button>
+                </div>
+
+                <div id="signupPseudoField" class="space-y-1 hidden">
+                    <label class="text-xs text-gray-400 font-semibold block">Pseudo (unique, 3-16 caractères)</label>
+                    <input type="text" id="authPseudo" maxlength="16" placeholder="DragonMaster" class="w-full bg-casino-dark border border-casino-border rounded-xl px-4 py-2.5 text-gold font-bold focus:outline-none focus:border-gold">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs text-gray-400 font-semibold block">Email</label>
+                    <input type="email" id="authEmail" placeholder="toi@exemple.com" class="w-full bg-casino-dark border border-casino-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs text-gray-400 font-semibold block">Mot de passe (6 caractères min.)</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" class="w-full bg-casino-dark border border-casino-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-gold">
+                </div>
+
+                <button id="authSubmitBtn" onclick="submitAuth()" class="w-full py-3.5 gold-button rounded-2xl text-xs uppercase font-extrabold">
+                    Se connecter
+                </button>
+            </div>
+
+            <div id="authLoggedInView" class="hidden space-y-4">
+                <div class="bg-casino-dark p-4 rounded-2xl border border-casino-border text-center space-y-2">
+                    <div class="text-xs text-gray-400">Connecté en tant que</div>
+                    <div id="authCurrentPseudo" class="text-lg font-extrabold text-gold">Invité_xxxxx</div>
+                    <div id="authCurrentEmail" class="text-xs text-gray-400">Mode anonyme</div>
+                </div>
+                <button onclick="logoutUser()" class="w-full py-3 bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-200 font-bold rounded-2xl text-xs uppercase transition">
+                    <i class="fa-solid fa-sign-out-alt mr-1"></i> Se déconnecter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE LEADERBOARD -->
+    <div id="leaderboardModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
+        <div class="bg-casino-card border border-gold/40 rounded-3xl p-6 max-w-lg w-full space-y-5 gold-border shadow-2xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="flex items-center justify-between border-b border-casino-border/80 pb-3">
+                <h3 class="text-lg font-bold font-serif-gold flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-gold"></i> Classement Global
+                </h3>
+                <button onclick="closeLeaderboard()" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <div class="flex gap-2 bg-casino-dark p-1 rounded-xl border border-casino-border">
+                <button id="lbTabXp" onclick="switchLbTab('xp')" class="flex-1 py-2 rounded-lg text-xs font-bold transition bg-gold text-black">XP</button>
+                <button id="lbTabBalance" onclick="switchLbTab('balance')" class="flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400">Jetons</button>
+                <button id="lbTabMaxWin" onclick="switchLbTab('maxWin')" class="flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400">Gros Gain</button>
+            </div>
+
+            <div id="leaderboardList" class="overflow-y-auto space-y-2 flex-1 pr-1">
+                <div class="text-center text-gray-500 text-xs py-8">
+                    <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>Chargement...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE BONUS -->
     <div id="bonusModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-casino-card border border-gold/40 rounded-3xl p-6 max-w-sm w-full text-center space-y-5 gold-border shadow-2xl">
             <h3 class="text-xl font-bold font-serif-gold">Récompense Quotidienne</h3>
@@ -429,6 +519,7 @@
         </div>
     </div>
 
+    <!-- MODALE REFILL -->
     <div id="refillModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-casino-card border border-red-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-5 shadow-2xl">
             <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 border border-red-500/40 flex items-center justify-center text-red-400 text-3xl"><i class="fa-solid fa-life-ring"></i></div>
@@ -443,6 +534,9 @@
     </footer>
 
     <script>
+        /* ============================================================
+           AUDIO
+           ============================================================ */
         const AudioEngine = {
             ctx: null, enabled: true,
             init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
@@ -489,7 +583,6 @@
             playAllIn() {
                 if (!this.enabled) return; this.init();
                 const now = this.ctx.currentTime;
-                // Montée dramatique
                 const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(200, now);
@@ -525,6 +618,9 @@
             }, 3500);
         }
 
+        /* ============================================================
+           STATE
+           ============================================================ */
         let state = {
             balance: parseInt(localStorage.getItem('vvh_balance')) || 1000,
             lastBonus: parseInt(localStorage.getItem('vvh_bonus_time')) || 0,
@@ -623,7 +719,9 @@
             if (tabKey === 'russian') resetRussianUI();
         }
 
-        /* --- EUROPEAN ROULETTE --- */
+        /* ============================================================
+           ROULETTE
+           ============================================================ */
         const ROULETTE_NUMBERS = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
         const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
         let rouletteBets = {}, rouletteAngle = 0, isSpinningRoulette = false;
@@ -680,11 +778,9 @@
             showToast("Mises effacées.", "info");
         }
 
-        // ✅ NOUVEAU : ALL IN Roulette = rembourse l'existant et met tout sur ROUGE
         function allInRoulette() {
             if (isSpinningRoulette) { showToast("Attendez la fin du spin.", "error"); return; }
 
-            // Rembourse les mises existantes
             let existing = 0;
             Object.values(rouletteBets).forEach(amt => existing += amt);
             state.balance += existing;
@@ -777,7 +873,9 @@
             rouletteBets = {}; renderBetsUI();
         }
 
-        /* --- PLINKO --- */
+        /* ============================================================
+           PLINKO
+           ============================================================ */
         let plinkoRisk = 'low';
         let plinkoRows = 12;
         let plinkoBallCount = 1;
@@ -885,18 +983,15 @@
             if (!plinkoAnimationId) runPlinkoLoop();
         }
 
-        // ✅ NOUVEAU : ALL IN Plinko = 1 bille avec mise = solde total
         function allInPlinko() {
             const bal = state.balance;
             if (bal < 5) { showToast("Solde trop faible pour un All In (5 jetons min).", "error"); return; }
 
-            // Force 1 bille
             plinkoBallCount = 1;
             document.getElementById('plinkoBallCountInput').value = 1;
             document.getElementById('plinkoBallCountValue').innerText = 1;
             document.getElementById('plinkoDropBtnText').innerText = "Lâcher une Bille";
 
-            // Mise = solde total
             document.getElementById('plinkoBetInput').value = bal;
             updatePlinkoTotalCost();
 
@@ -1090,9 +1185,11 @@
             step();
         }
 
-        /* --- RUSSIAN ROULETTE --- */
+        /* ============================================================
+           RUSSIAN ROULETTE
+           ============================================================ */
         let russianBulletPosition = -1, russianCurrentChamber = 0, russianMult = 1.0, russianActive = false;
-        let russianActiveBet = 0; // ✅ FIX : mémorise la mise réelle de la partie en cours
+        let russianActiveBet = 0;
 
         function resetRussianUI() {
             russianActive = false; russianMult = 1.0; russianActiveBet = 0;
@@ -1118,7 +1215,6 @@
             }
         }
 
-        // ✅ NOUVEAU : ALL IN Russian = mise = solde (bloqué si partie active)
         function allInRussian() {
             if (russianActive) { showToast("Partie en cours : la mise est verrouillée.", "error"); return; }
             const bal = state.balance;
@@ -1134,10 +1230,10 @@
                 if (state.balance < bet) return showToast("Solde insuffisant.", "error");
                 updateBalance(-bet); addXPForBet(bet);
                 russianActive = true; russianMult = 1.2;
-                russianActiveBet = bet; // ✅ FIX : mémorise la mise
+                russianActiveBet = bet;
                 document.getElementById('russianCashoutBtn').disabled = false;
-                document.getElementById('russianBetInput').disabled = true; // ✅ FIX : bloque la modif
-                document.getElementById('russianAllInBtn').disabled = true; // ✅ FIX
+                document.getElementById('russianBetInput').disabled = true;
+                document.getElementById('russianAllInBtn').disabled = true;
             }
 
             const cylinder = document.getElementById('revolverCylinder');
@@ -1153,7 +1249,7 @@
                 } else {
                     AudioEngine.playTick();
                     russianMult = parseFloat((russianMult + 0.6).toFixed(2));
-                    const potentialWin = Math.floor(russianActiveBet * russianMult); // ✅ FIX : utilise la mise verrouillée
+                    const potentialWin = Math.floor(russianActiveBet * russianMult);
                     document.getElementById('russianMultiplier').innerText = `${russianMult.toFixed(2)}x`;
                     document.getElementById('russianPotentialWin').innerText = potentialWin.toLocaleString();
                     showToast("CLIC ! Chambre vide. Multiplicateur augmenté !", "win");
@@ -1162,16 +1258,17 @@
         }
 
         function cashoutRussian() {
-            const win = Math.floor(russianActiveBet * russianMult); // ✅ FIX : mise verrouillée
+            const win = Math.floor(russianActiveBet * russianMult);
             AudioEngine.playWin(); updateBalance(win); recordWin(win);
             showToast(`Victoire ! Encaissement réussi : +${win} Jetons !`, "win");
             resetRussianUI();
         }
 
-        /* --- SLOTS --- */
+        /* ============================================================
+           SLOTS
+           ============================================================ */
         const SLOT_SYMBOLS = ['🍒', '🍋', '🔔', '💎', '7️⃣'];
 
-        // ✅ NOUVEAU : ALL IN Slots
         function allInSlots() {
             const bal = state.balance;
             if (bal < 5) { showToast("Solde trop faible pour un All In (5 jetons min).", "error"); return; }
@@ -1201,10 +1298,11 @@
             }, 600);
         }
 
-        /* --- BLACKJACK --- */
+        /* ============================================================
+           BLACKJACK
+           ============================================================ */
         let bjDeck = [], bjPlayer = [], bjDealer = [];
 
-        // ✅ NOUVEAU : ALL IN Blackjack
         function allInBlackjack() {
             const bal = state.balance;
             if (bal < 10) { showToast("Solde trop faible pour un All In (10 jetons min).", "error"); return; }
@@ -1260,11 +1358,12 @@
             document.getElementById('bjAllInBtn').disabled = false;
         }
 
-        /* --- VIDEO POKER --- */
+        /* ============================================================
+           VIDEO POKER
+           ============================================================ */
         let pokerState = 'deal', pokerHand = [], pokerHold = [false, false, false, false, false];
         const POKER_RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
 
-        // ✅ NOUVEAU : ALL IN Poker
         function allInPoker() {
             if (pokerState !== 'deal') { showToast("Terminez la main en cours d'abord.", "error"); return; }
             const bal = state.balance;
@@ -1335,11 +1434,408 @@
             }
         }
 
+        /* ============================================================
+           🔥 FIREBASE : AUTH + FIRESTORE + LEADERBOARD
+           ============================================================ */
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxgV8yOEn06hXxHyLBB7ADiDWyAD-O5oU",
+            authDomain: "casino-800dd.firebaseapp.com",
+            projectId: "casino-800dd",
+            storageBucket: "casino-800dd.firebasestorage.app",
+            messagingSenderId: "388958472524",
+            appId: "1:388958472524:web:13c2c52cc43f66bb04a7e9"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentUser = null;
+        let userProfile = null;
+        let pendingSync = false;
+        let syncTimeout = null;
+        let leaderboardCache = { xp: null, balance: null, maxWin: null, ts: 0 };
+        let currentLbTab = 'xp';
+        let currentAuthMode = 'login';
+
+        // -------- SYNC DEBOUNCE --------
+        function scheduleSync() {
+            pendingSync = true;
+            const syncIcon = document.getElementById('syncIcon');
+            if (syncIcon) syncIcon.className = 'fa-solid fa-cloud-arrow-up text-[10px] text-amber-500 ml-1';
+            if (syncTimeout) return;
+            syncTimeout = setTimeout(flushSync, 30000);
+        }
+
+        async function flushSync() {
+            syncTimeout = null;
+            if (!pendingSync || !currentUser || !userProfile) return;
+            pendingSync = false;
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    balance: state.balance,
+                    xp: state.xp,
+                    maxWin: state.maxWin,
+                    gamesPlayed: state.gamesPlayed,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                const syncIcon = document.getElementById('syncIcon');
+                if (syncIcon) syncIcon.className = 'fa-solid fa-cloud text-[10px] text-emerald-500 ml-1';
+            } catch (e) {
+                console.warn('Sync error:', e);
+                const syncIcon = document.getElementById('syncIcon');
+                if (syncIcon) syncIcon.className = 'fa-solid fa-cloud-exclamation text-[10px] text-red-500 ml-1';
+            }
+        }
+
+        window.addEventListener('beforeunload', () => { if (pendingSync) flushSync(); });
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden' && pendingSync) flushSync();
+        });
+
+        // -------- HOOKS --------
+        const _origUpdateBalance = updateBalance;
+        updateBalance = function(amount) {
+            _origUpdateBalance(amount);
+            scheduleSync();
+        };
+
+        const _origRecordWin = recordWin;
+        recordWin = function(amount) {
+            _origRecordWin(amount);
+            scheduleSync();
+        };
+
+        // -------- AUTH STATE --------
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                try {
+                    await loadOrCreateProfile(user);
+                    updateAuthUI();
+                    await pullProfileToLocal(user);
+                } catch (e) {
+                    console.error('Erreur profil:', e);
+                }
+            } else {
+                try {
+                    await auth.signInAnonymously();
+                } catch (e) {
+                    console.error('Auth anonyme échouée:', e);
+                    showToast("Erreur de connexion au serveur.", "error");
+                }
+            }
+        });
+
+        async function loadOrCreateProfile(user) {
+            const ref = db.collection('users').doc(user.uid);
+            const snap = await ref.get();
+            if (snap.exists) {
+                userProfile = snap.data();
+            } else {
+                const guestPseudo = `Invité_${user.uid.substring(0, 5)}`;
+                userProfile = {
+                    pseudo: guestPseudo,
+                    pseudoLower: guestPseudo.toLowerCase(),
+                    balance: state.balance,
+                    xp: state.xp,
+                    maxWin: state.maxWin,
+                    gamesPlayed: state.gamesPlayed,
+                    isAnonymous: true,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                await ref.set(userProfile);
+            }
+        }
+
+        async function pullProfileToLocal(user) {
+            if (!userProfile) return;
+            const cloudBalance = userProfile.balance ?? 0;
+            const cloudXp = userProfile.xp ?? 0;
+            const cloudMaxWin = userProfile.maxWin ?? 0;
+            const cloudGames = userProfile.gamesPlayed ?? 0;
+
+            const finalBalance = Math.max(state.balance, cloudBalance);
+            const finalXp = Math.max(state.xp, cloudXp);
+            const finalMaxWin = Math.max(state.maxWin, cloudMaxWin);
+            const finalGames = Math.max(state.gamesPlayed, cloudGames);
+
+            state.balance = finalBalance;
+            state.xp = finalXp;
+            state.maxWin = finalMaxWin;
+            state.gamesPlayed = finalGames;
+
+            localStorage.setItem('vvh_balance', finalBalance);
+            localStorage.setItem('vvh_xp', finalXp);
+            localStorage.setItem('vvh_max_win', finalMaxWin);
+            localStorage.setItem('vvh_games_played', finalGames);
+
+            renderUserStats();
+            scheduleSync();
+        }
+
+        // -------- UI AUTH --------
+        function updateAuthUI() {
+            const txt = document.getElementById('authBtnText');
+            const pseudoEl = document.getElementById('authCurrentPseudo');
+            const emailEl = document.getElementById('authCurrentEmail');
+
+            if (!currentUser || !userProfile) {
+                if (txt) txt.innerText = "Connexion";
+                return;
+            }
+
+            if (txt) txt.innerText = userProfile.isAnonymous ? "Invité" : userProfile.pseudo;
+            if (pseudoEl) pseudoEl.innerText = userProfile.pseudo;
+            if (emailEl) emailEl.innerText = userProfile.isAnonymous ? "Mode anonyme" : (currentUser.email || "");
+        }
+
+        function openAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.remove('hidden');
+            hideAuthError();
+
+            const formSection = document.getElementById('authFormSection');
+            const loggedView = document.getElementById('authLoggedInView');
+
+            if (currentUser && !currentUser.isAnonymous && userProfile) {
+                formSection.classList.add('hidden');
+                loggedView.classList.remove('hidden');
+                updateAuthUI();
+            } else {
+                formSection.classList.remove('hidden');
+                loggedView.classList.add('hidden');
+                switchAuthTab('signup');
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+            hideAuthError();
+        }
+
+        function switchAuthTab(mode) {
+            currentAuthMode = mode;
+            const loginTab = document.getElementById('authTabLogin');
+            const signupTab = document.getElementById('authTabSignup');
+            const pseudoField = document.getElementById('signupPseudoField');
+            const btn = document.getElementById('authSubmitBtn');
+            const title = document.getElementById('authModalTitle');
+
+            if (mode === 'login') {
+                loginTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition bg-gold text-black';
+                signupTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400';
+                pseudoField.classList.add('hidden');
+                btn.innerText = "Se connecter";
+                title.innerText = "Connexion";
+            } else {
+                loginTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400';
+                signupTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition bg-gold text-black';
+                pseudoField.classList.remove('hidden');
+                btn.innerText = "Créer mon compte";
+                title.innerText = "Créer un compte";
+            }
+            hideAuthError();
+        }
+
+        function showAuthError(msg) {
+            const el = document.getElementById('authError');
+            el.innerText = msg;
+            el.classList.remove('hidden');
+        }
+        function hideAuthError() {
+            document.getElementById('authError').classList.add('hidden');
+        }
+
+        async function submitAuth() {
+            hideAuthError();
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value;
+
+            if (!email || !password) return showAuthError("Email et mot de passe requis.");
+            if (password.length < 6) return showAuthError("Le mot de passe doit faire au moins 6 caractères.");
+
+            const btn = document.getElementById('authSubmitBtn');
+            btn.disabled = true;
+            const oldText = btn.innerText;
+            btn.innerText = "...";
+
+            try {
+                if (currentAuthMode === 'signup') {
+                    await signupWithEmail(email, password);
+                } else {
+                    await loginWithEmail(email, password);
+                }
+                closeAuthModal();
+            } catch (e) {
+                console.error(e);
+                const msg = translateAuthError(e.code) || e.message;
+                showAuthError(msg);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = oldText;
+            }
+        }
+
+        async function signupWithEmail(email, password) {
+            const pseudo = document.getElementById('authPseudo').value.trim();
+            if (pseudo.length < 3 || pseudo.length > 16) throw new Error("Le pseudo doit faire entre 3 et 16 caractères.");
+            if (!/^[a-zA-Z0-9_\-À-ÿ]+$/.test(pseudo)) throw new Error("Le pseudo contient des caractères invalides.");
+
+            const pseudoLower = pseudo.toLowerCase();
+
+            const pseudoRef = db.collection('pseudos').doc(pseudoLower);
+            const pseudoSnap = await pseudoRef.get();
+            if (pseudoSnap.exists) throw new Error("Ce pseudo est déjà pris.");
+
+            if (!currentUser) throw new Error("Session expirée, rechargez la page.");
+
+            const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+            try {
+                await currentUser.linkWithCredential(credential);
+            } catch (e) {
+                if (e.code === 'auth/email-already-in-use') {
+                    throw new Error("Cet email est déjà utilisé. Essaie de te connecter.");
+                }
+                throw e;
+            }
+
+            // Réserver le pseudo
+            try {
+                await pseudoRef.set({
+                    uid: currentUser.uid,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (e) {
+                throw new Error("Ce pseudo vient d'être pris. Réessaie avec un autre.");
+            }
+
+            await db.collection('users').doc(currentUser.uid).update({
+                pseudo,
+                pseudoLower,
+                isAnonymous: false,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            userProfile.pseudo = pseudo;
+            userProfile.pseudoLower = pseudoLower;
+            userProfile.isAnonymous = false;
+            updateAuthUI();
+            showToast(`Bienvenue ${pseudo} ! Compte créé.`, "win");
+        }
+
+        async function loginWithEmail(email, password) {
+            if (currentUser && currentUser.isAnonymous) {
+                // On supprime le compte anonyme avant de se connecter à un vrai compte
+                try { await currentUser.delete(); } catch (e) { /* ignore */ }
+            }
+            await auth.signInWithEmailAndPassword(email, password);
+        }
+
+        async function logoutUser() {
+            await flushSync();
+            await auth.signOut();
+            // onAuthStateChanged va reconnecter en anonyme
+            closeAuthModal();
+            showToast("Déconnecté. Nouvelle session invitée.", "info");
+        }
+
+        function translateAuthError(code) {
+            const map = {
+                'auth/wrong-password': "Mot de passe incorrect.",
+                'auth/user-not-found': "Aucun compte avec cet email.",
+                'auth/invalid-email': "Email invalide.",
+                'auth/email-already-in-use': "Cet email est déjà utilisé.",
+                'auth/weak-password': "Mot de passe trop faible.",
+                'auth/too-many-requests': "Trop de tentatives. Réessaie plus tard.",
+                'auth/unauthorized-domain': "Domaine non autorisé. Ajoute ton domaine GitHub Pages dans Firebase Console.",
+                'auth/invalid-credential': "Email ou mot de passe incorrect."
+            };
+            return map[code];
+        }
+
+        // -------- LEADERBOARD --------
+        function openLeaderboard() {
+            document.getElementById('leaderboardModal').classList.remove('hidden');
+            switchLbTab(currentLbTab);
+        }
+
+        function closeLeaderboard() {
+            document.getElementById('leaderboardModal').classList.add('hidden');
+        }
+
+        async function switchLbTab(tab) {
+            currentLbTab = tab;
+            ['xp', 'balance', 'maxWin'].forEach(t => {
+                const btn = document.getElementById('lbTab' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (!btn) return;
+                if (t === tab) btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition bg-gold text-black';
+                else btn.className = 'flex-1 py-2 rounded-lg text-xs font-bold transition text-gray-400';
+            });
+            await renderLeaderboard(tab);
+        }
+
+        async function renderLeaderboard(type) {
+            const container = document.getElementById('leaderboardList');
+            container.innerHTML = `<div class="text-center text-gray-500 text-xs py-8"><i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>Chargement...</div>`;
+
+            let list;
+            const now = Date.now();
+            if (leaderboardCache[type] && (now - leaderboardCache.ts) < 60000) {
+                list = leaderboardCache[type];
+            } else {
+                try {
+                    const snap = await db.collection('users')
+                        .orderBy(type, 'desc')
+                        .limit(20)
+                        .get();
+                    list = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+                    leaderboardCache[type] = list;
+                    leaderboardCache.ts = now;
+                } catch (e) {
+                    console.error(e);
+                    container.innerHTML = `<div class="text-center text-red-400 text-xs py-8">Erreur de chargement. Vérifie les règles Firestore.</div>`;
+                    return;
+                }
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-500 text-xs py-8">Aucun joueur classé pour l'instant.</div>`;
+                return;
+            }
+
+            const medals = ['🥇', '🥈', '🥉'];
+            container.innerHTML = list.map((u, i) => {
+                const isMe = currentUser && u.uid === currentUser.uid;
+                const pseudo = u.pseudo || 'Anonyme';
+                const value = type === 'xp' ? (u.xp || 0) : type === 'balance' ? (u.balance || 0) : (u.maxWin || 0);
+                const rank = i < 3 ? medals[i] : `#${i + 1}`;
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-xl border ${isMe ? 'bg-gold/10 border-gold/60' : 'bg-casino-dark border-casino-border'}">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg font-extrabold ${i < 3 ? '' : 'text-gray-400'} w-8 text-center">${rank}</span>
+                            <div>
+                                <div class="text-sm font-bold ${isMe ? 'text-gold' : 'text-white'}">${pseudo}${isMe ? ' (toi)' : ''}</div>
+                                <div class="text-[10px] text-gray-500">${u.isAnonymous ? 'Invité' : 'Compte'}</div>
+                            </div>
+                        </div>
+                        <div class="text-sm font-extrabold text-amber-400">${value.toLocaleString()}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ============================================================
+           INIT
+           ============================================================ */
         window.onload = () => {
             buildRouletteGrid();
             drawRouletteWheel(0);
             renderUserStats();
             checkRefill();
+            // Firebase démarre via onAuthStateChanged
         };
     </script>
 </body>
