@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casino</title>
+    <title>Vegas Virtual Hub - High-End Neon Casino</title>
 
     <!-- 🔥 FIREBASE SDK (compat, à charger AVANT tout autre script) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -60,8 +60,8 @@
                     <i class="fa-solid fa-crown text-2xl font-serif-gold"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black font-serif-gold tracking-wider">CASINO VIRTUAL</h1>
-                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Casino Prestige</p>
+                    <h1 class="text-xl font-black font-serif-gold tracking-wider">VEGAS VIRTUAL</h1>
+                    <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Luxe Hub & Casino Prestige</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -95,7 +95,7 @@
             <button onclick="switchTab('roulette')" id="tab-roulette" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne</button>
             <button onclick="switchTab('plinko')" id="tab-plinko" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-network-wired text-purple-400"></i> Plinko</button>
             <button onclick="switchTab('russian')" id="tab-russian" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-crosshairs text-red-500"></i> Barillet Russe</button>
-            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-cubes text-yellow-400"></i> Slots</button>
+            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-cubes text-yellow-400"></i> Slots Néon</button>
             <button onclick="switchTab('blackjack')" id="tab-blackjack" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21</button>
             <button onclick="switchTab('poker')" id="tab-poker" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-clone text-blue-400"></i> Video Poker</button>
         </div>
@@ -107,7 +107,7 @@
             <div class="relative bg-gradient-to-r from-amber-950/40 via-casino-panel to-casino-card rounded-3xl p-6 sm:p-8 border border-gold/30 gold-border overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-3 z-10 text-center md:text-left max-w-xl">
                     <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><i class="fa-solid fa-star text-gold text-[10px]"></i> Prestige Edition</span>
-                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">CASINO VIRTUAL HUB</h2>
+                    <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">VEGAS VIRTUAL HUB</h2>
                     <p class="text-sm text-gray-300 leading-relaxed">Bienvenue dans l'expérience ultime de casino virtuel. Misez virtuellement sans aucun risque d'argent réel, gagnez de l'XP et débloquez les plus hauts multiplicateurs !</p>
                     <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
                         <button onclick="switchTab('roulette')" class="px-6 py-3 gold-button rounded-xl text-sm uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-play"></i> Jouer Maintenant</button>
@@ -1702,7 +1702,6 @@
                 throw e;
             }
 
-            // Réserver le pseudo
             try {
                 await pseudoRef.set({
                     uid: currentUser.uid,
@@ -1726,18 +1725,18 @@
             showToast(`Bienvenue ${pseudo} ! Compte créé.`, "win");
         }
 
+        // ✅ FIX : connexion simplifiée (pas de suppression de l'anonyme)
         async function loginWithEmail(email, password) {
-            if (currentUser && currentUser.isAnonymous) {
-                // On supprime le compte anonyme avant de se connecter à un vrai compte
-                try { await currentUser.delete(); } catch (e) { /* ignore */ }
-            }
+            // On ne supprime PAS le compte anonyme :
+            // Firebase gère le changement de session automatiquement, et l'ancien
+            // compte anonyme restera dans Firestore mais ne polluera pas le classement
+            // car on filtre isAnonymous == false dans la requête.
             await auth.signInWithEmailAndPassword(email, password);
         }
 
         async function logoutUser() {
             await flushSync();
             await auth.signOut();
-            // onAuthStateChanged va reconnecter en anonyme
             closeAuthModal();
             showToast("Déconnecté. Nouvelle session invitée.", "info");
         }
@@ -1751,7 +1750,8 @@
                 'auth/weak-password': "Mot de passe trop faible.",
                 'auth/too-many-requests': "Trop de tentatives. Réessaie plus tard.",
                 'auth/unauthorized-domain': "Domaine non autorisé. Ajoute ton domaine GitHub Pages dans Firebase Console.",
-                'auth/invalid-credential': "Email ou mot de passe incorrect."
+                'auth/invalid-credential': "Email ou mot de passe incorrect.",
+                'auth/invalid-login-credentials': "Email ou mot de passe incorrect."
             };
             return map[code];
         }
@@ -1777,6 +1777,7 @@
             await renderLeaderboard(tab);
         }
 
+        // ✅ FIX : filtre les comptes anonymes du classement
         async function renderLeaderboard(type) {
             const container = document.getElementById('leaderboardList');
             container.innerHTML = `<div class="text-center text-gray-500 text-xs py-8"><i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>Chargement...</div>`;
@@ -1788,6 +1789,7 @@
             } else {
                 try {
                     const snap = await db.collection('users')
+                        .where('isAnonymous', '==', false)
                         .orderBy(type, 'desc')
                         .limit(20)
                         .get();
@@ -1796,7 +1798,7 @@
                     leaderboardCache.ts = now;
                 } catch (e) {
                     console.error(e);
-                    container.innerHTML = `<div class="text-center text-red-400 text-xs py-8">Erreur de chargement. Vérifie les règles Firestore.</div>`;
+                    container.innerHTML = `<div class="text-center text-red-400 text-xs py-8 px-4">Erreur de chargement.<br><span class="text-[10px] text-gray-500">Si tu vois cette erreur pour la première fois, ouvre la console (F12) et clique sur le lien pour créer l'index composite Firestore.</span></div>`;
                     return;
                 }
             }
@@ -1835,7 +1837,6 @@
             drawRouletteWheel(0);
             renderUserStats();
             checkRefill();
-            // Firebase démarre via onAuthStateChanged
         };
     </script>
 </body>
