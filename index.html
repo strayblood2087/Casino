@@ -12,18 +12,8 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: {
-                            light: '#ffe57f',
-                            DEFAULT: '#ffd700',
-                            dark: '#c5a000',
-                        },
-                        casino: {
-                            dark: '#06080d',
-                            panel: '#0d111a',
-                            card: '#141a29',
-                            border: '#232d42',
-                            accent: '#1e293b'
-                        }
+                        gold: { light: '#ffe57f', DEFAULT: '#ffd700', dark: '#c5a000' },
+                        casino: { dark: '#06080d', panel: '#0d111a', card: '#141a29', border: '#232d42', accent: '#1e293b' }
                     }
                 }
             }
@@ -31,91 +21,29 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Inter:wght@300;400;600;700;800&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #06080d;
-            color: #f1f5f9;
-            user-select: none;
-        }
-
-        .font-serif-gold {
-            font-family: 'Cinzel', serif;
-            background: linear-gradient(135deg, #FFF7AD 0%, #FFA900 50%, #B87B00 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-border {
-            border: 1px solid rgba(255, 215, 0, 0.35);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
-        }
-
-        .gold-button {
-            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
-            color: #000;
-            font-weight: 800;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
-        }
-
-        .gold-button:hover:not(:disabled) {
-            filter: brightness(1.2);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .gold-button:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .lobby-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .lobby-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px -10px rgba(255, 215, 0, 0.2);
-        }
-
-        .blur-spinning {
-            filter: blur(4px);
-            transform: scale(0.95);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #06080d;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #232d42;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ffd700;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .animate-toast {
-            animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes cylinderSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(1080deg); }
-        }
-
-        .spinning-cylinder {
-            animation: cylinderSpin 1.2s cubic-bezier(0.15, 0.85, 0.35, 1.2) forwards;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #06080d; color: #f1f5f9; user-select: none; }
+        .font-serif-gold { font-family: 'Cinzel', serif; background: linear-gradient(135deg, #FFF7AD 0%, #FFA900 50%, #B87B00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gold-border { border: 1px solid rgba(255, 215, 0, 0.35); box-shadow: 0 0 20px rgba(255, 215, 0, 0.1); }
+        .gold-button { background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%); color: #000; font-weight: 800; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .gold-button:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); transform: translateY(-2px); }
+        .gold-button:active:not(:disabled) { transform: translateY(0); }
+        .allin-button { background: linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%); color: #fff; font-weight: 800; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); border: 1px solid rgba(239, 68, 68, 0.5); }
+        .allin-button:hover:not(:disabled) { filter: brightness(1.2); box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); transform: translateY(-2px); }
+        .allin-button:active:not(:disabled) { transform: translateY(0); }
+        .allin-button:disabled { opacity: 0.4; cursor: not-allowed; }
+        .lobby-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lobby-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px -10px rgba(255, 215, 0, 0.2); }
+        .blur-spinning { filter: blur(4px); transform: scale(0.95); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #06080d; }
+        ::-webkit-scrollbar-thumb { background: #232d42; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffd700; }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .animate-toast { animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes cylinderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(1080deg); } }
+        .spinning-cylinder { animation: cylinderSpin 1.2s cubic-bezier(0.15, 0.85, 0.35, 1.2) forwards; }
+        @keyframes pulseRed { 0%, 100% { box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); } 50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.6); } }
+        .allin-button.pulse { animation: pulseRed 2s ease-in-out infinite; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-gold selection:text-black">
@@ -131,18 +59,15 @@
                     <p class="text-[9px] text-amber-400/80 font-bold tracking-widest uppercase">Luxe Hub & Casino Prestige</p>
                 </div>
             </div>
-
             <div class="flex items-center gap-3">
                 <div class="bg-casino-dark px-4 py-2 rounded-xl border border-gold/40 flex items-center gap-2.5 shadow-inner">
                     <i class="fa-solid fa-coins text-gold text-lg animate-pulse"></i>
                     <span id="userBalance" class="font-extrabold text-xl text-yellow-400 tracking-wide">1,000</span>
                     <span class="text-[10px] text-gray-400 font-bold">JETONS</span>
                 </div>
-
                 <button id="refillBtn" onclick="triggerRefillModal()" class="hidden px-3 py-2 text-xs bg-red-950/80 hover:bg-red-900 border border-red-500/60 rounded-xl text-red-200 transition font-bold animate-pulse">
                     <i class="fa-solid fa-hand-holding-dollar mr-1"></i> Secours
                 </button>
-
                 <button id="soundToggleBtn" onclick="toggleSound()" class="p-2.5 bg-casino-card hover:bg-casino-border border border-casino-border rounded-xl text-gold transition" title="Activer/Désactiver le son">
                     <i id="soundIcon" class="fa-solid fa-volume-high text-lg"></i>
                 </button>
@@ -150,62 +75,35 @@
         </div>
     </header>
 
-    <!-- Navigation Bar -->
     <nav class="bg-casino-panel border-b border-casino-border/80 py-2.5 px-4 overflow-x-auto sticky top-[65px] z-30">
         <div class="max-w-7xl mx-auto flex items-center justify-start md:justify-center gap-2 min-w-max">
-            <button onclick="switchTab('home')" id="tab-home" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-gold text-black shadow-md">
-                <i class="fa-solid fa-house"></i> Accueil
-            </button>
-            <button onclick="switchTab('roulette')" id="tab-roulette" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne
-            </button>
-            <button onclick="switchTab('plinko')" id="tab-plinko" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-network-wired text-purple-400"></i> Plinko
-            </button>
-            <button onclick="switchTab('russian')" id="tab-russian" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-crosshairs text-red-500"></i> Barillet Russe
-            </button>
-            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-cubes text-yellow-400"></i> Slots Néon
-            </button>
-            <button onclick="switchTab('blackjack')" id="tab-blackjack" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21
-            </button>
-            <button onclick="switchTab('poker')" id="tab-poker" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300">
-                <i class="fa-solid fa-clone text-blue-400"></i> Video Poker
-            </button>
+            <button onclick="switchTab('home')" id="tab-home" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-gold text-black shadow-md"><i class="fa-solid fa-house"></i> Accueil</button>
+            <button onclick="switchTab('roulette')" id="tab-roulette" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne</button>
+            <button onclick="switchTab('plinko')" id="tab-plinko" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-network-wired text-purple-400"></i> Plinko</button>
+            <button onclick="switchTab('russian')" id="tab-russian" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-crosshairs text-red-500"></i> Barillet Russe</button>
+            <button onclick="switchTab('slots')" id="tab-slots" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-cubes text-yellow-400"></i> Slots Néon</button>
+            <button onclick="switchTab('blackjack')" id="tab-blackjack" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21</button>
+            <button onclick="switchTab('poker')" id="tab-poker" class="game-tab px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-casino-card hover:bg-casino-border text-gray-300"><i class="fa-solid fa-clone text-blue-400"></i> Video Poker</button>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto w-full px-4 py-6 flex-1 flex flex-col justify-center">
 
-        <!-- LOBBY / HOME VIEW -->
         <section id="view-home" class="view-section space-y-8">
             <div class="relative bg-gradient-to-r from-amber-950/40 via-casino-panel to-casino-card rounded-3xl p-6 sm:p-8 border border-gold/30 gold-border overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-3 z-10 text-center md:text-left max-w-xl">
-                    <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5">
-                        <i class="fa-solid fa-star text-gold text-[10px]"></i> Prestige Edition
-                    </span>
+                    <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><i class="fa-solid fa-star text-gold text-[10px]"></i> Prestige Edition</span>
                     <h2 class="text-3xl sm:text-4xl font-black font-serif-gold leading-tight">VEGAS VIRTUAL HUB</h2>
                     <p class="text-sm text-gray-300 leading-relaxed">Bienvenue dans l'expérience ultime de casino virtuel. Misez virtuellement sans aucun risque d'argent réel, gagnez de l'XP et débloquez les plus hauts multiplicateurs !</p>
-                    
                     <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
-                        <button onclick="switchTab('roulette')" class="px-6 py-3 gold-button rounded-xl text-sm uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-play"></i> Jouer Maintenant
-                        </button>
-                        <button onclick="openBonusModal()" class="px-5 py-3 bg-purple-900/50 hover:bg-purple-800 border border-purple-500/50 rounded-xl text-sm font-bold text-purple-200 transition flex items-center gap-2 shadow-lg">
-                            <i class="fa-solid fa-gift text-gold"></i> Récompense Quotidienne
-                        </button>
+                        <button onclick="switchTab('roulette')" class="px-6 py-3 gold-button rounded-xl text-sm uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-play"></i> Jouer Maintenant</button>
+                        <button onclick="openBonusModal()" class="px-5 py-3 bg-purple-900/50 hover:bg-purple-800 border border-purple-500/50 rounded-xl text-sm font-bold text-purple-200 transition flex items-center gap-2 shadow-lg"><i class="fa-solid fa-gift text-gold"></i> Récompense Quotidienne</button>
                     </div>
                 </div>
-
                 <div class="z-10 bg-casino-dark/90 p-5 rounded-2xl border border-casino-border min-w-[280px] space-y-4 shadow-2xl">
                     <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-shield-halved text-gold text-lg"></i>
-                            <span id="playerLevel" class="text-sm font-extrabold text-gold">Niveau 1</span>
-                        </div>
-                        <span id="playerXpText" class="text-xs text-gray-400 font-mono">0 / 100 XP</span>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-gold text-lg"></i><span id="playerLevel" class="text-sm font-extrabold text-gold">Niveau 1</span></div>
+                        <span id="playerXpText" class="text-xs text-gray-400 font-mono">0 / 200 XP</span>
                     </div>
                     <div class="w-full bg-casino-card h-2.5 rounded-full overflow-hidden border border-casino-border">
                         <div id="playerXpBar" class="bg-gradient-to-r from-amber-500 to-gold h-full w-0 transition-all duration-500"></div>
@@ -223,24 +121,16 @@
                 </div>
             </div>
 
-            <!-- Game Cards Grid -->
             <div class="space-y-4">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold font-serif-gold tracking-wide flex items-center gap-2">
-                        <i class="fa-solid fa-gamepad text-gold"></i> Nos Salons de Jeu
-                    </h3>
+                    <h3 class="text-xl font-bold font-serif-gold tracking-wide flex items-center gap-2"><i class="fa-solid fa-gamepad text-gold"></i> Nos Salons de Jeu</h3>
                     <span class="text-xs text-gray-400 font-semibold">6 Expériences Interactives</span>
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div onclick="switchTab('roulette')" class="lobby-card bg-casino-card border border-casino-border hover:border-gold/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-gold">
-                            <i class="fa-solid fa-circle-dot"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-gold"><i class="fa-solid fa-circle-dot"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-gold text-2xl">
-                                <i class="fa-solid fa-circle-dot"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-gold text-2xl"><i class="fa-solid fa-circle-dot"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-gold transition">Roulette Européenne</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Roue physique synchronisée 37 numéros. Physique d'arrêt précise, tapis complet et jetons virtuels.</p>
                         </div>
@@ -249,32 +139,22 @@
                             <span class="text-xs font-bold text-gold flex items-center gap-1">Rejoindre <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                         </div>
                     </div>
-
                     <div onclick="switchTab('plinko')" class="lobby-card bg-casino-card border border-casino-border hover:border-purple-500/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-purple-400">
-                            <i class="fa-solid fa-network-wired"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-purple-400"><i class="fa-solid fa-network-wired"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl">
-                                <i class="fa-solid fa-network-wired"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl"><i class="fa-solid fa-network-wired"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-purple-300 transition">Plinko</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Simulateur physique avec rebonds élastiques sur chevilles, dispersion aléatoire et multiplicateurs dynamiques.</p>
                         </div>
                         <div class="pt-4 flex items-center justify-between z-10 border-t border-casino-border/50">
-                            <span class="text-xs font-semibold text-purple-400">Jusqu'à x100</span>
+                            <span class="text-xs font-semibold text-purple-400">Jusqu'à x265</span>
                             <span class="text-xs font-bold text-purple-300 flex items-center gap-1">Rejoindre <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                         </div>
                     </div>
-
                     <div onclick="switchTab('russian')" class="lobby-card bg-casino-card border border-casino-border hover:border-red-500/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-red-500">
-                            <i class="fa-solid fa-crosshairs"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-red-500"><i class="fa-solid fa-crosshairs"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl">
-                                <i class="fa-solid fa-crosshairs"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl"><i class="fa-solid fa-crosshairs"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-red-300 transition">Barillet Russe Visual</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Barillet rotatif visuel à 6 chambres. Montez en multiplicateur ou encaissez avant la balle fatale.</p>
                         </div>
@@ -283,15 +163,10 @@
                             <span class="text-xs font-bold text-red-300 flex items-center gap-1">Rejoindre <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                         </div>
                     </div>
-
                     <div onclick="switchTab('slots')" class="lobby-card bg-casino-card border border-casino-border hover:border-yellow-500/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-yellow-400">
-                            <i class="fa-solid fa-cubes"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-yellow-400"><i class="fa-solid fa-cubes"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl">
-                                <i class="fa-solid fa-cubes"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl"><i class="fa-solid fa-cubes"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-yellow-300 transition">Slots Néon 3x3</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Machine à sous classique 3x3 avec rouleaux animés, symboles Wilds et effets luminescents.</p>
                         </div>
@@ -300,15 +175,10 @@
                             <span class="text-xs font-bold text-yellow-300 flex items-center gap-1">Rejoindre <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                         </div>
                     </div>
-
                     <div onclick="switchTab('blackjack')" class="lobby-card bg-casino-card border border-casino-border hover:border-emerald-500/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-emerald-400">
-                            <i class="fa-solid fa-spade"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-emerald-400"><i class="fa-solid fa-spade"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl">
-                                <i class="fa-solid fa-spade"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl"><i class="fa-solid fa-spade"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-emerald-300 transition">Blackjack 21</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Distribution de cartes interactives. Doublez, tirez ou restez pour battre la banque.</p>
                         </div>
@@ -317,15 +187,10 @@
                             <span class="text-xs font-bold text-emerald-300 flex items-center gap-1">Rejoindre <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                         </div>
                     </div>
-
                     <div onclick="switchTab('poker')" class="lobby-card bg-casino-card border border-casino-border hover:border-blue-500/50 rounded-2xl p-5 cursor-pointer flex flex-col justify-between h-64 relative overflow-hidden group">
-                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-blue-400">
-                            <i class="fa-solid fa-clone"></i>
-                        </div>
+                        <div class="absolute -right-8 -bottom-8 opacity-10 group-hover:opacity-20 transition text-9xl text-blue-400"><i class="fa-solid fa-clone"></i></div>
                         <div class="space-y-2 z-10">
-                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl">
-                                <i class="fa-solid fa-clone"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl"><i class="fa-solid fa-clone"></i></div>
                             <h4 class="text-lg font-bold text-white group-hover:text-blue-300 transition">Video Poker Jacks or Better</h4>
                             <p class="text-xs text-gray-400 leading-relaxed">Garder les cartes avec le mode HOLD et réalisez les combinaisons officielles du Poker.</p>
                         </div>
@@ -338,27 +203,18 @@
             </div>
         </section>
 
-        <!-- ROULETTE VIEW -->
         <section id="view-roulette" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
                 <div class="flex items-center justify-between border-b border-casino-border/80 pb-4">
-                    <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2">
-                        <i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne (37 Numéros)
-                    </h2>
+                    <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2"><i class="fa-solid fa-circle-dot text-gold"></i> Roulette Européenne (37 Numéros)</h2>
                     <span id="rouletteStatusText" class="text-xs font-bold text-amber-400 bg-amber-950/40 px-3 py-1 rounded-full border border-amber-500/30">Placez vos jetons</span>
                 </div>
-
                 <div class="flex flex-col lg:flex-row items-center justify-around gap-8">
                     <div class="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center">
-                        <div class="absolute -top-3 z-20 text-gold text-3xl filter drop-shadow-[0_2px_8px_rgba(255,215,0,0.8)]">
-                            <i class="fa-solid fa-caret-down"></i>
-                        </div>
+                        <div class="absolute -top-3 z-20 text-gold text-3xl filter drop-shadow-[0_2px_8px_rgba(255,215,0,0.8)]"><i class="fa-solid fa-caret-down"></i></div>
                         <canvas id="rouletteCanvas" width="320" height="320" class="rounded-full shadow-[0_0_35px_rgba(0,0,0,0.9)] border-4 border-gold/40"></canvas>
-                        <div class="absolute w-16 h-16 rounded-full bg-casino-dark border-2 border-gold flex items-center justify-center font-black text-gold text-xl shadow-inner" id="rouletteResult">
-                            --
-                        </div>
+                        <div class="absolute w-16 h-16 rounded-full bg-casino-dark border-2 border-gold flex items-center justify-center font-black text-gold text-xl shadow-inner" id="rouletteResult">--</div>
                     </div>
-
                     <div class="w-full max-w-xl space-y-4">
                         <div class="flex items-center justify-between bg-casino-dark p-3 rounded-2xl border border-casino-border">
                             <span class="text-xs font-semibold text-gray-400">Choix du Jeton:</span>
@@ -369,7 +225,6 @@
                                 <button onclick="selectChip(500)" class="chip-btn px-3 py-1 bg-amber-900/60 border border-amber-400 text-amber-300 rounded-xl text-xs font-bold">500</button>
                             </div>
                         </div>
-
                         <div class="grid grid-cols-13 gap-1 bg-emerald-950/60 p-2.5 rounded-2xl border border-emerald-600/40 text-center font-bold text-xs select-none overflow-x-auto">
                             <div onclick="placeRouletteBet('number', 0)" class="col-span-1 bg-emerald-600/50 hover:bg-emerald-500/70 text-emerald-100 rounded-lg flex items-center justify-center cursor-pointer min-h-[90px] border border-emerald-400/40 relative font-extrabold text-sm">
                                 0
@@ -377,7 +232,6 @@
                             </div>
                             <div id="rouletteNumbersGrid" class="col-span-12 grid grid-cols-12 gap-1"></div>
                         </div>
-
                         <div class="grid grid-cols-6 gap-2 text-xs font-bold">
                             <button onclick="placeRouletteBet('doz', 1)" class="bg-casino-dark hover:bg-casino-border py-2.5 rounded-xl border border-casino-border text-gray-300">1er 12</button>
                             <button onclick="placeRouletteBet('doz', 2)" class="bg-casino-dark hover:bg-casino-border py-2.5 rounded-xl border border-casino-border text-gray-300">2ème 12</button>
@@ -386,36 +240,28 @@
                             <button onclick="placeRouletteBet('color', 'black')" class="bg-gray-900 hover:bg-gray-800 border border-gray-700 text-gray-200 py-2.5 rounded-xl">Noir</button>
                             <button onclick="placeRouletteBet('evenOdd', 'even')" class="bg-casino-dark hover:bg-casino-border py-2.5 rounded-xl border border-casino-border text-gray-300">Pair</button>
                         </div>
-
                         <div class="flex gap-3 pt-2">
                             <button onclick="spinRoulette()" class="flex-1 py-3.5 gold-button rounded-2xl text-sm tracking-wider uppercase font-extrabold">Lancer la Roulette</button>
-                            <button onclick="clearRouletteBets()" class="px-5 py-3.5 bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-300 font-bold rounded-2xl text-xs transition">Effacer Mises</button>
+                            <button onclick="allInRoulette()" class="allin-button px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-fire"></i> ALL IN</button>
+                            <button onclick="clearRouletteBets()" class="px-5 py-3.5 bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-300 font-bold rounded-2xl text-xs transition">Effacer</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PLINKO VIEW WITH REALISTIC 2D PHYSICS -->
         <section id="view-plinko" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-4 sm:p-6 shadow-2xl space-y-6">
                 <div class="flex items-center justify-between border-b border-casino-border/80 pb-4">
-                    <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2">
-                        <i class="fa-solid fa-network-wired text-purple-400"></i> Plinko Simulation
-                    </h2>
-                    <span class="text-xs text-gray-400 font-semibold">Moteur physique 2D temps réel avec collisions élastiques</span>
+                    <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2"><i class="fa-solid fa-network-wired text-purple-400"></i> Plinko Simulation</h2>
+                    <span class="text-xs text-gray-400 font-semibold">Physique 2D avec rebonds + distribution équitable</span>
                 </div>
-
                 <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                     <div class="w-full lg:w-auto flex justify-center">
                         <canvas id="plinkoCanvas" width="480" height="520" class="bg-casino-dark rounded-3xl border border-casino-border shadow-2xl max-w-full"></canvas>
                     </div>
-
                     <div class="w-full lg:w-80 space-y-5 bg-casino-dark/70 p-6 rounded-3xl border border-casino-border">
-                        <h3 class="font-serif-gold text-base font-bold flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-purple-400"></i> Paramètres Plinko
-                        </h3>
-                        
+                        <h3 class="font-serif-gold text-base font-bold flex items-center gap-2"><i class="fa-solid fa-sliders text-purple-400"></i> Paramètres Plinko</h3>
                         <div>
                             <label class="text-xs text-gray-400 font-semibold block mb-2">Niveau de Risque</label>
                             <div class="grid grid-cols-3 gap-2">
@@ -424,35 +270,41 @@
                                 <button onclick="setPlinkoRisk('high')" id="risk-high" class="plinko-risk-btn py-2 rounded-xl border text-xs font-bold bg-casino-dark border-casino-border text-gray-400">Élevé</button>
                             </div>
                         </div>
-
                         <div>
                             <label class="text-xs text-gray-400 font-semibold block mb-2">Nombre de Lignes: <span id="plinkoRowsValue" class="text-gold font-bold">12</span></label>
                             <input type="range" id="plinkoRowsInput" min="8" max="16" value="12" step="2" oninput="updatePlinkoRows(this.value)" class="w-full accent-gold bg-casino-card rounded-lg h-2 cursor-pointer">
                         </div>
-
+                        <div>
+                            <label class="text-xs text-gray-400 font-semibold block mb-2">Nombre de Billes: <span id="plinkoBallCountValue" class="text-gold font-bold">1</span></label>
+                            <input type="range" id="plinkoBallCountInput" min="1" max="50" value="1" step="1" oninput="updatePlinkoBallCount(this.value)" class="w-full accent-gold bg-casino-card rounded-lg h-2 cursor-pointer">
+                        </div>
                         <div>
                             <label class="text-xs text-gray-400 font-semibold block mb-2">Mise par Bille</label>
-                            <input type="number" id="plinkoBetInput" value="20" min="5" step="5" class="w-full bg-casino-dark border border-casino-border rounded-xl px-4 py-2.5 text-gold font-extrabold focus:outline-none focus:border-gold">
+                            <input type="number" id="plinkoBetInput" value="20" min="5" step="5" oninput="updatePlinkoTotalCost()" class="w-full bg-casino-dark border border-casino-border rounded-xl px-4 py-2.5 text-gold font-extrabold focus:outline-none focus:border-gold">
                         </div>
-
-                        <button onclick="dropPlinkoBall()" class="w-full py-3.5 gold-button rounded-2xl text-sm uppercase tracking-wider font-extrabold flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-circle-down"></i> Lâcher une Bille
-                        </button>
+                        <div class="bg-casino-card p-3 rounded-xl border border-casino-border flex items-center justify-between">
+                            <span class="text-xs text-gray-400 font-semibold">Coût Total</span>
+                            <span class="text-sm font-extrabold text-amber-400"><span id="plinkoTotalCost">20</span> jetons</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="plinkoDropBtn" onclick="dropPlinkoBall()" class="flex-1 py-3.5 gold-button rounded-2xl text-sm uppercase tracking-wider font-extrabold flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-down"></i> <span id="plinkoDropBtnText">Lâcher une Bille</span>
+                            </button>
+                            <button onclick="allInPlinko()" class="allin-button px-3 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-1" title="ALL IN (1 bille)">
+                                <i class="fa-solid fa-fire"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- RUSSIAN ROULETTE VIEW -->
         <section id="view-russian" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-6 shadow-2xl max-w-lg mx-auto text-center space-y-6">
                 <div class="border-b border-casino-border/80 pb-4">
-                    <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-crosshairs text-red-500"></i> Roulette Russe - Barillet Rotatif
-                    </h2>
+                    <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2"><i class="fa-solid fa-crosshairs text-red-500"></i> Roulette Russe - Barillet Rotatif</h2>
                     <p class="text-xs text-gray-400 mt-1">Observez la cartouche chargée, tournez le barillet et survived pour encaisser !</p>
                 </div>
-
                 <div class="relative w-56 h-56 mx-auto flex items-center justify-center my-4">
                     <div id="revolverCylinder" class="w-48 h-48 rounded-full bg-casino-dark border-4 border-gray-700 relative shadow-2xl flex items-center justify-center transition-transform">
                         <div id="chamber-0" class="chamber absolute w-11 h-11 rounded-full bg-gray-900 border-2 border-gray-700 flex items-center justify-center -translate-y-16"></div>
@@ -464,7 +316,6 @@
                         <div class="w-10 h-10 rounded-full bg-gray-800 border border-gray-600 z-10 shadow-inner"></div>
                     </div>
                 </div>
-
                 <div class="bg-casino-dark p-4 rounded-2xl border border-casino-border flex items-center justify-around">
                     <div>
                         <span class="text-xs text-gray-400 block font-semibold">Multiplicateur</span>
@@ -475,30 +326,21 @@
                         <span id="russianPotentialWin" class="text-2xl font-extrabold text-emerald-400">0</span>
                     </div>
                 </div>
-
-                <div class="flex items-center justify-center gap-3">
-                    <span class="text-xs text-gray-400 font-semibold">Mise de Départ:</span>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-xs text-gray-400 font-semibold">Mise:</span>
                     <input type="number" id="russianBetInput" value="50" min="10" step="10" class="w-28 bg-casino-dark border border-casino-border rounded-xl px-3 py-1.5 text-gold font-bold text-center">
+                    <button id="russianAllInBtn" onclick="allInRussian()" class="allin-button px-3 py-1.5 rounded-xl text-[10px] uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-fire"></i> ALL IN</button>
                 </div>
-
                 <div class="flex gap-3 pt-2">
-                    <button id="russianTriggerBtn" onclick="pullRussianTrigger()" class="flex-1 py-3.5 bg-red-700 hover:bg-red-600 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-hand-pointer"></i> Presser la Détente
-                    </button>
-                    <button id="russianCashoutBtn" onclick="cashoutRussian()" disabled class="flex-1 py-3.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-wallet"></i> Encaisser
-                    </button>
+                    <button id="russianTriggerBtn" onclick="pullRussianTrigger()" class="flex-1 py-3.5 bg-red-700 hover:bg-red-600 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2"><i class="fa-solid fa-hand-pointer"></i> Presser la Détente</button>
+                    <button id="russianCashoutBtn" onclick="cashoutRussian()" disabled class="flex-1 py-3.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2"><i class="fa-solid fa-wallet"></i> Encaisser</button>
                 </div>
             </div>
         </section>
 
-        <!-- SLOTS VIEW -->
         <section id="view-slots" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-6 shadow-2xl text-center space-y-6 max-w-md mx-auto">
-                <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-cubes text-yellow-400"></i> Machine à Sous Néon 3x3
-                </h2>
-
+                <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2"><i class="fa-solid fa-cubes text-yellow-400"></i> Machine à Sous Néon 3x3</h2>
                 <div class="grid grid-cols-3 gap-3 bg-casino-dark p-4 rounded-3xl border border-gold/30 shadow-inner">
                     <div id="slot-0" class="h-24 bg-casino-panel border border-casino-border rounded-2xl flex items-center justify-center text-4xl shadow-inner transition-all">🎰</div>
                     <div id="slot-1" class="h-24 bg-casino-panel border border-casino-border rounded-2xl flex items-center justify-center text-4xl shadow-inner transition-all">🎰</div>
@@ -510,24 +352,20 @@
                     <div id="slot-7" class="h-24 bg-casino-panel border border-casino-border rounded-2xl flex items-center justify-center text-4xl shadow-inner transition-all">🎰</div>
                     <div id="slot-8" class="h-24 bg-casino-panel border border-casino-border rounded-2xl flex items-center justify-center text-4xl shadow-inner transition-all">🎰</div>
                 </div>
-
-                <div class="flex items-center justify-between gap-4 pt-2">
+                <div class="flex items-center gap-3 pt-2">
                     <div class="text-left">
                         <span class="text-xs text-gray-400 block font-semibold">Mise Totale</span>
                         <input type="number" id="slotsBetInput" value="20" min="5" step="5" class="w-28 bg-casino-dark border border-casino-border rounded-xl px-3 py-2 text-gold font-bold">
                     </div>
+                    <button onclick="allInSlots()" class="allin-button px-3 py-2.5 rounded-xl text-[10px] uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-fire"></i> ALL IN</button>
                     <button onclick="spinSlots()" class="flex-1 py-3.5 gold-button rounded-2xl text-sm font-extrabold uppercase">Lancer Spin</button>
                 </div>
             </div>
         </section>
 
-        <!-- BLACKJACK VIEW -->
         <section id="view-blackjack" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-6 shadow-2xl max-w-xl mx-auto space-y-6">
-                <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2 border-b border-casino-border/80 pb-4">
-                    <i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21
-                </h2>
-
+                <h2 class="text-lg font-bold font-serif-gold flex items-center gap-2 border-b border-casino-border/80 pb-4"><i class="fa-solid fa-spade text-emerald-400"></i> Blackjack 21</h2>
                 <div class="bg-casino-dark p-4 rounded-2xl border border-casino-border space-y-2">
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-400 font-extrabold uppercase">Croupier</span>
@@ -535,7 +373,6 @@
                     </div>
                     <div id="dealerHand" class="flex gap-2 min-h-[90px] items-center overflow-x-auto py-1"></div>
                 </div>
-
                 <div class="bg-casino-dark p-4 rounded-2xl border border-casino-border space-y-2">
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-400 font-extrabold uppercase">Joueur</span>
@@ -543,13 +380,12 @@
                     </div>
                     <div id="playerHand" class="flex gap-2 min-h-[90px] items-center overflow-x-auto py-1"></div>
                 </div>
-
-                <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
                     <div class="flex items-center gap-2">
                         <span class="text-xs text-gray-400 font-semibold">Mise:</span>
                         <input type="number" id="bjBetInput" value="50" min="10" step="10" class="w-24 bg-casino-dark border border-casino-border rounded-xl px-3 py-1.5 text-gold font-bold text-sm">
+                        <button id="bjAllInBtn" onclick="allInBlackjack()" class="allin-button px-3 py-1.5 rounded-xl text-[10px] uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-fire"></i> ALL IN</button>
                     </div>
-
                     <div class="flex gap-2">
                         <button id="bjDealBtn" onclick="startBlackjack()" class="px-5 py-2.5 gold-button rounded-xl text-xs uppercase font-extrabold">Distribuer</button>
                         <button id="bjHitBtn" onclick="hitBlackjack()" disabled class="px-4 py-2.5 bg-purple-900/60 border border-purple-500/40 text-purple-200 rounded-xl text-xs font-bold disabled:opacity-40">Tirer</button>
@@ -559,13 +395,9 @@
             </div>
         </section>
 
-        <!-- VIDEO POKER VIEW -->
         <section id="view-poker" class="view-section hidden space-y-6">
             <div class="bg-casino-card border border-casino-border rounded-3xl p-6 shadow-2xl max-w-2xl mx-auto space-y-6 text-center">
-                <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2 border-b border-casino-border/80 pb-4">
-                    <i class="fa-solid fa-clone text-blue-400"></i> Video Poker (Jacks or Better)
-                </h2>
-
+                <h2 class="text-lg font-bold font-serif-gold flex items-center justify-center gap-2 border-b border-casino-border/80 pb-4"><i class="fa-solid fa-clone text-blue-400"></i> Video Poker (Jacks or Better)</h2>
                 <div id="pokerHand" class="flex justify-center gap-2 sm:gap-3 my-6 min-h-[110px]">
                     <div class="w-16 h-24 bg-casino-dark border border-casino-border rounded-xl flex items-center justify-center font-bold text-gray-600">?</div>
                     <div class="w-16 h-24 bg-casino-dark border border-casino-border rounded-xl flex items-center justify-center font-bold text-gray-600">?</div>
@@ -573,12 +405,11 @@
                     <div class="w-16 h-24 bg-casino-dark border border-casino-border rounded-xl flex items-center justify-center font-bold text-gray-600">?</div>
                     <div class="w-16 h-24 bg-casino-dark border border-casino-border rounded-xl flex items-center justify-center font-bold text-gray-600">?</div>
                 </div>
-
                 <p id="pokerStatus" class="text-xs text-amber-400 font-bold h-4">Misez et cliquez sur Distribuer</p>
-
-                <div class="flex items-center justify-center gap-4">
+                <div class="flex items-center justify-center gap-3">
                     <span class="text-xs text-gray-400 font-semibold">Mise:</span>
                     <input type="number" id="pokerBetInput" value="25" min="5" step="5" class="w-24 bg-casino-dark border border-casino-border rounded-xl px-3 py-1.5 text-gold font-bold text-sm">
+                    <button id="pokerAllInBtn" onclick="allInPoker()" class="allin-button px-3 py-1.5 rounded-xl text-[10px] uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-fire"></i> ALL IN</button>
                     <button id="pokerActionBtn" onclick="handlePokerAction()" class="px-6 py-3 gold-button rounded-xl text-xs uppercase font-extrabold">Distribuer</button>
                 </div>
             </div>
@@ -592,29 +423,18 @@
         <div class="bg-casino-card border border-gold/40 rounded-3xl p-6 max-w-sm w-full text-center space-y-5 gold-border shadow-2xl">
             <h3 class="text-xl font-bold font-serif-gold">Récompense Quotidienne</h3>
             <p class="text-xs text-gray-300">Réclamez vos jetons gratuits toutes les 12 heures pour continuer à jouer !</p>
-
-            <div class="w-32 h-32 mx-auto rounded-full bg-gold/10 border-2 border-gold flex items-center justify-center text-4xl text-gold animate-bounce">
-                <i class="fa-solid fa-gift"></i>
-            </div>
-
-            <button onclick="claimDailyBonus()" class="w-full py-3.5 gold-button rounded-2xl text-xs uppercase font-extrabold">
-                Réclamer 500 Jetons
-            </button>
+            <div class="w-32 h-32 mx-auto rounded-full bg-gold/10 border-2 border-gold flex items-center justify-center text-4xl text-gold animate-bounce"><i class="fa-solid fa-gift"></i></div>
+            <button onclick="claimDailyBonus()" class="w-full py-3.5 gold-button rounded-2xl text-xs uppercase font-extrabold">Réclamer 500 Jetons</button>
             <button onclick="closeBonusModal()" class="text-xs text-gray-400 hover:text-white block mx-auto">Fermer</button>
         </div>
     </div>
 
     <div id="refillModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-casino-card border border-red-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-5 shadow-2xl">
-            <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 border border-red-500/40 flex items-center justify-center text-red-400 text-3xl">
-                <i class="fa-solid fa-life-ring"></i>
-            </div>
+            <div class="w-16 h-16 mx-auto rounded-full bg-red-500/10 border border-red-500/40 flex items-center justify-center text-red-400 text-3xl"><i class="fa-solid fa-life-ring"></i></div>
             <h3 class="text-lg font-bold text-white">Fonds Épuisés !</h3>
             <p class="text-xs text-gray-300">Votre solde est tombé sous le seuil minimal. Activez la recharge de secours immédiate.</p>
-
-            <button onclick="executeRefill()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-amber-600 hover:brightness-110 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider shadow-lg">
-                Recharger 250 Jetons
-            </button>
+            <button onclick="executeRefill()" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-amber-600 hover:brightness-110 text-white font-extrabold rounded-2xl text-xs uppercase tracking-wider shadow-lg">Recharger 250 Jetons</button>
         </div>
     </div>
 
@@ -624,71 +444,60 @@
 
     <script>
         const AudioEngine = {
-            ctx: null,
-            enabled: true,
-            init() {
-                if (!this.ctx) {
-                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-            },
+            ctx: null, enabled: true,
+            init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
             playTick() {
-                if (!this.enabled) return;
-                this.init();
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(700, this.ctx.currentTime);
+                if (!this.enabled) return; this.init();
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'sine'; osc.frequency.setValueAtTime(700, this.ctx.currentTime);
                 gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.02);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.02);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.02);
             },
             playBounce() {
-                if (!this.enabled) return;
-                this.init();
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(450, this.ctx.currentTime);
+                if (!this.enabled) return; this.init();
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(450, this.ctx.currentTime);
                 gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.03);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.03);
             },
             playWin() {
-                if (!this.enabled) return;
-                this.init();
+                if (!this.enabled) return; this.init();
                 const now = this.ctx.currentTime;
                 [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
+                    const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
                     osc.frequency.setValueAtTime(freq, now + idx * 0.08);
                     gain.gain.setValueAtTime(0.08, now + idx * 0.08);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
-                    osc.connect(gain);
-                    gain.connect(this.ctx.destination);
-                    osc.start(now + idx * 0.08);
-                    osc.stop(now + idx * 0.08 + 0.3);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(now + idx * 0.08); osc.stop(now + idx * 0.08 + 0.3);
                 });
             },
             playShot() {
-                if (!this.enabled) return;
-                this.init();
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+                if (!this.enabled) return; this.init();
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, this.ctx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.2);
                 gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.2);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(this.ctx.currentTime + 0.2);
+            },
+            playAllIn() {
+                if (!this.enabled) return; this.init();
+                const now = this.ctx.currentTime;
+                // Montée dramatique
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.exponentialRampToValueAtTime(900, now + 0.5);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(now); osc.stop(now + 0.6);
             }
         };
 
@@ -704,16 +513,14 @@
             toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-toast ${
                 type === 'win' ? 'bg-emerald-950/90 border-emerald-500 text-emerald-200' :
                 type === 'error' ? 'bg-red-950/90 border-red-500 text-red-200' :
+                type === 'allin' ? 'bg-gradient-to-r from-red-950/95 to-amber-950/95 border-amber-500 text-amber-100' :
                 'bg-casino-card border-gold/40 text-gold'
             }`;
-
-            const icon = type === 'win' ? 'fa-trophy text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-red-400' : 'fa-bell text-gold';
+            const icon = type === 'win' ? 'fa-trophy text-emerald-400' : type === 'error' ? 'fa-circle-exclamation text-red-400' : type === 'allin' ? 'fa-fire text-amber-400' : 'fa-bell text-gold';
             toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${msg}</span>`;
-
             container.appendChild(toast);
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
+                toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
@@ -729,59 +536,62 @@
 
         function updateBalance(amount) {
             state.balance += amount;
-            if (amount > 0) {
-                state.xp += Math.floor(amount / 5);
-                if (amount > state.maxWin) state.maxWin = amount;
-            }
-            state.gamesPlayed += 1;
-
             localStorage.setItem('vvh_balance', state.balance);
+            renderUserStats(); checkRefill();
+        }
+
+        function addXPForBet(betAmount) {
+            const xpGain = Math.max(1, Math.floor(Math.sqrt(betAmount) * 2));
+            state.xp += xpGain; state.gamesPlayed += 1;
             localStorage.setItem('vvh_xp', state.xp);
             localStorage.setItem('vvh_games_played', state.gamesPlayed);
-            localStorage.setItem('vvh_max_win', state.maxWin);
-
             renderUserStats();
-            checkRefill();
+            return xpGain;
+        }
+
+        function recordWin(winAmount) {
+            if (winAmount > state.maxWin) {
+                state.maxWin = winAmount;
+                localStorage.setItem('vvh_max_win', state.maxWin);
+            }
+            renderUserStats();
+        }
+
+        function xpForNextLevel(level) { return 200 + (level - 1) * 150; }
+
+        function getLevelInfo(totalXp) {
+            let level = 1; let remaining = totalXp;
+            while (remaining >= xpForNextLevel(level)) {
+                remaining -= xpForNextLevel(level); level++;
+                if (level > 999) break;
+            }
+            return { level, progressXp: remaining, xpForNext: xpForNextLevel(level) };
         }
 
         function renderUserStats() {
             document.getElementById('userBalance').innerText = state.balance.toLocaleString();
             document.getElementById('statGames').innerText = state.gamesPlayed;
             document.getElementById('statMaxWin').innerText = state.maxWin.toLocaleString();
-            
-            const level = Math.floor(state.xp / 100) + 1;
-            const progress = state.xp % 100;
-            document.getElementById('playerLevel').innerText = `Niveau ${level}`;
-            document.getElementById('playerXpText').innerText = `${progress} / 100 XP`;
-            document.getElementById('playerXpBar').style.width = `${progress}%`;
+            const info = getLevelInfo(state.xp);
+            document.getElementById('playerLevel').innerText = `Niveau ${info.level}`;
+            document.getElementById('playerXpText').innerText = `${info.progressXp} / ${info.xpForNext} XP`;
+            document.getElementById('playerXpBar').style.width = `${(info.progressXp / info.xpForNext) * 100}%`;
         }
 
         function checkRefill() {
             const refillBtn = document.getElementById('refillBtn');
-            if (state.balance < 10) {
-                refillBtn.classList.remove('hidden');
-            } else {
-                refillBtn.classList.add('hidden');
-            }
+            if (state.balance < 10) refillBtn.classList.remove('hidden');
+            else refillBtn.classList.add('hidden');
         }
 
-        function triggerRefillModal() {
-            document.getElementById('refillModal').classList.remove('hidden');
-        }
-
+        function triggerRefillModal() { document.getElementById('refillModal').classList.remove('hidden'); }
         function executeRefill() {
             updateBalance(250);
             document.getElementById('refillModal').classList.add('hidden');
             showToast("Recharge de secours effectuée : +250 Jetons !", "win");
         }
-
-        function openBonusModal() {
-            document.getElementById('bonusModal').classList.remove('hidden');
-        }
-
-        function closeBonusModal() {
-            document.getElementById('bonusModal').classList.add('hidden');
-        }
+        function openBonusModal() { document.getElementById('bonusModal').classList.remove('hidden'); }
+        function closeBonusModal() { document.getElementById('bonusModal').classList.add('hidden'); }
 
         function claimDailyBonus() {
             const now = Date.now();
@@ -789,8 +599,7 @@
             if (now - state.lastBonus >= cooldown) {
                 state.lastBonus = now;
                 localStorage.setItem('vvh_bonus_time', now);
-                updateBalance(500);
-                closeBonusModal();
+                updateBalance(500); closeBonusModal();
                 showToast("Récompense quotidienne réclamée : +500 Jetons !", "win");
             } else {
                 const remaining = Math.ceil((cooldown - (now - state.lastBonus)) / (1000 * 60));
@@ -804,25 +613,20 @@
                 el.classList.remove('bg-gold', 'text-black');
                 el.classList.add('bg-casino-card', 'text-gray-300');
             });
-
             document.getElementById(`view-${tabKey}`).classList.remove('hidden');
             const activeTab = document.getElementById(`tab-${tabKey}`);
             if (activeTab) {
                 activeTab.classList.remove('bg-casino-card', 'text-gray-300');
                 activeTab.classList.add('bg-gold', 'text-black');
             }
-
             if (tabKey === 'plinko') initPlinko();
             if (tabKey === 'russian') resetRussianUI();
         }
 
-        /* --- EUROPEAN ROULETTE LOGIC --- */
+        /* --- EUROPEAN ROULETTE --- */
         const ROULETTE_NUMBERS = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
         const RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-
-        let rouletteBets = {};
-        let rouletteAngle = 0;
-        let isSpinningRoulette = false;
+        let rouletteBets = {}, rouletteAngle = 0, isSpinningRoulette = false;
 
         function selectChip(val) {
             state.selectedChip = val;
@@ -839,27 +643,21 @@
                 cell.className = `p-2 rounded-lg text-center cursor-pointer border relative transition font-extrabold ${isRed ? 'bg-red-950/70 border-red-500/40 text-red-200 hover:bg-red-900' : 'bg-gray-900 border-gray-700 text-gray-200 hover:bg-gray-800'}`;
                 cell.innerText = i;
                 cell.onclick = () => placeRouletteBet('number', i);
-
                 const badge = document.createElement('span');
                 badge.id = `bet-num-${i}`;
                 badge.className = 'absolute -top-1.5 -right-1.5 bg-gold text-black rounded-full w-5 h-5 text-[10px] hidden items-center justify-center font-black shadow-md border border-white';
-                cell.appendChild(badge);
-                grid.appendChild(cell);
+                cell.appendChild(badge); grid.appendChild(cell);
             }
         }
 
         function placeRouletteBet(type, key) {
             if (isSpinningRoulette) return;
-            if (state.balance < state.selectedChip) {
-                showToast("Solde insuffisant pour cette mise !", "error");
-                return;
-            }
-
+            if (state.balance < state.selectedChip) { showToast("Solde insuffisant pour cette mise !", "error"); return; }
             const betKey = `${type}_${key}`;
             rouletteBets[betKey] = (rouletteBets[betKey] || 0) + state.selectedChip;
             updateBalance(-state.selectedChip);
-            renderBetsUI();
-            AudioEngine.playTick();
+            addXPForBet(state.selectedChip);
+            renderBetsUI(); AudioEngine.playTick();
         }
 
         function renderBetsUI() {
@@ -867,13 +665,8 @@
                 const badge = document.getElementById(`bet-num-${i}`);
                 if (badge) {
                     const amount = rouletteBets[`number_${i}`];
-                    if (amount) {
-                        badge.innerText = amount;
-                        badge.classList.remove('hidden');
-                        badge.classList.add('flex');
-                    } else {
-                        badge.classList.add('hidden');
-                    }
+                    if (amount) { badge.innerText = amount; badge.classList.remove('hidden'); badge.classList.add('flex'); }
+                    else badge.classList.add('hidden');
                 }
             }
         }
@@ -883,98 +676,87 @@
             let total = 0;
             Object.values(rouletteBets).forEach(amt => total += amt);
             updateBalance(total);
-            rouletteBets = {};
-            renderBetsUI();
+            rouletteBets = {}; renderBetsUI();
             showToast("Mises effacées.", "info");
+        }
+
+        // ✅ NOUVEAU : ALL IN Roulette = rembourse l'existant et met tout sur ROUGE
+        function allInRoulette() {
+            if (isSpinningRoulette) { showToast("Attendez la fin du spin.", "error"); return; }
+
+            // Rembourse les mises existantes
+            let existing = 0;
+            Object.values(rouletteBets).forEach(amt => existing += amt);
+            state.balance += existing;
+            rouletteBets = {};
+
+            const bal = state.balance;
+            if (bal < 10) {
+                localStorage.setItem('vvh_balance', state.balance);
+                renderUserStats();
+                showToast("Solde trop faible pour un All In (10 jetons min).", "error");
+                return;
+            }
+
+            rouletteBets['color_red'] = bal;
+            updateBalance(-bal);
+            addXPForBet(bal);
+            renderBetsUI();
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN sur ROUGE : ${bal.toLocaleString()} jetons !`, "allin");
         }
 
         function drawRouletteWheel(angle) {
             const canvas = document.getElementById('rouletteCanvas');
             const ctx = canvas.getContext('2d');
-            const cx = canvas.width / 2;
-            const cy = canvas.height / 2;
-            const radius = 140;
+            const cx = canvas.width / 2, cy = canvas.height / 2, radius = 140;
             const slice = (Math.PI * 2) / ROULETTE_NUMBERS.length;
-
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             ROULETTE_NUMBERS.forEach((num, idx) => {
                 const startAngle = angle + idx * slice;
                 const endAngle = startAngle + slice;
-
-                ctx.beginPath();
-                ctx.moveTo(cx, cy);
-                ctx.arc(cx, cy, radius, startAngle, endAngle);
-                ctx.closePath();
-
+                ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, radius, startAngle, endAngle); ctx.closePath();
                 if (num === 0) ctx.fillStyle = '#10B981';
                 else ctx.fillStyle = RED_NUMBERS.includes(num) ? '#DC2626' : '#1F2937';
-                ctx.fill();
-                ctx.strokeStyle = '#06080d';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
-                ctx.save();
-                ctx.translate(cx, cy);
-                ctx.rotate(startAngle + slice / 2);
-                ctx.textAlign = 'right';
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 12px Inter';
-                ctx.fillText(num, radius - 12, 4);
-                ctx.restore();
+                ctx.fill(); ctx.strokeStyle = '#06080d'; ctx.lineWidth = 1; ctx.stroke();
+                ctx.save(); ctx.translate(cx, cy); ctx.rotate(startAngle + slice / 2);
+                ctx.textAlign = 'right'; ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 12px Inter';
+                ctx.fillText(num, radius - 12, 4); ctx.restore();
             });
-
-            ctx.beginPath();
-            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-            ctx.strokeStyle = '#FFD700';
-            ctx.lineWidth = 4;
-            ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 4; ctx.stroke();
         }
 
         function spinRoulette() {
             if (isSpinningRoulette) return;
-            if (Object.keys(rouletteBets).length === 0) {
-                showToast("Veuillez placer au moins une mise.", "error");
-                return;
-            }
-
+            if (Object.keys(rouletteBets).length === 0) { showToast("Veuillez placer au moins une mise.", "error"); return; }
             isSpinningRoulette = true;
             const winningIdx = Math.floor(Math.random() * ROULETTE_NUMBERS.length);
             const winningNum = ROULETTE_NUMBERS[winningIdx];
-
             const sliceAngle = (Math.PI * 2) / ROULETTE_NUMBERS.length;
             const targetSliceAngle = (3 * Math.PI / 2) - (winningIdx * sliceAngle) - (sliceAngle / 2);
             const totalRounds = 6 * Math.PI * 2;
             const finalAngle = totalRounds + targetSliceAngle;
-
-            let startTime = null;
-            const duration = 4000;
-
+            let startTime = null; const duration = 4000;
             function animateSpin(timestamp) {
                 if (!startTime) startTime = timestamp;
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const easeOut = 1 - Math.pow(1 - progress, 3);
-                
                 rouletteAngle = easeOut * finalAngle;
-                drawRouletteWheel(rouletteAngle);
-                AudioEngine.playTick();
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateSpin);
-                } else {
+                drawRouletteWheel(rouletteAngle); AudioEngine.playTick();
+                if (progress < 1) requestAnimationFrame(animateSpin);
+                else {
                     document.getElementById('rouletteResult').innerText = winningNum;
                     evaluateRoulette(winningNum);
                     isSpinningRoulette = false;
                 }
             }
-
             requestAnimationFrame(animateSpin);
         }
 
         function evaluateRoulette(num) {
             let winAmount = 0;
             const isRed = RED_NUMBERS.includes(num);
-
             Object.entries(rouletteBets).forEach(([key, bet]) => {
                 const [type, val] = key.split('_');
                 if (type === 'number' && parseInt(val) === num) winAmount += bet * 36;
@@ -988,99 +770,181 @@
                     if (d === 3 && num >= 25 && num <= 36) winAmount += bet * 3;
                 }
             });
-
             if (winAmount > 0) {
-                AudioEngine.playWin();
-                updateBalance(winAmount);
+                AudioEngine.playWin(); updateBalance(winAmount); recordWin(winAmount);
                 showToast(`Gagné ! Numéro ${num}. Gain : +${winAmount} Jetons !`, "win");
-            } else {
-                showToast(`Numéro sorti : ${num}. Pas de gain sur ce tirage.`, "info");
-            }
-            rouletteBets = {};
-            renderBetsUI();
+            } else showToast(`Numéro sorti : ${num}. Pas de gain sur ce tirage.`, "info");
+            rouletteBets = {}; renderBetsUI();
         }
 
-        /* --- REALISTIC 2D PLINKO PHYSICS ENGINE --- */
+        /* --- PLINKO --- */
         let plinkoRisk = 'low';
         let plinkoRows = 12;
+        let plinkoBallCount = 1;
         let plinkoBalls = [];
         let plinkoPegs = [];
         let plinkoBucketsHighlight = [];
         let plinkoAnimationId = null;
+        let plinkoDryStreak = 0;
+        const PLINKO_PITY_THRESHOLD = 100;
+        const PLINKO_BIG_MULT_THRESHOLD = 20;
 
         const plinkoMultipliers = {
             low: {
-                8: [5.6, 2.1, 1.1, 1, 0.5, 1, 1.1, 2.1, 5.6],
-                10: [8.9, 3, 1.4, 1.1, 1, 0.5, 1, 1.1, 1.4, 3, 8.9],
-                12: [10, 3, 1.6, 1.4, 1.1, 1, 0.5, 1, 1.1, 1.4, 1.6, 3, 10],
-                14: [12, 4, 1.9, 1.4, 1.2, 1.1, 1, 0.5, 1, 1.1, 1.2, 1.4, 1.9, 4, 12],
-                16: [16, 9, 2, 1.4, 1.2, 1.1, 1, 0.5, 1, 1.1, 1.2, 1.4, 2, 9, 16]
+                8:  [5.4, 2, 1.1, 1, 0.5, 1, 1.1, 2, 5.4],
+                10: [8.4, 2.8, 1.4, 1.1, 1, 0.5, 1, 1.1, 1.4, 2.8, 8.4],
+                12: [9.5, 2.9, 1.5, 1.3, 1.1, 1, 0.5, 1, 1.1, 1.3, 1.5, 2.9, 9.5],
+                14: [11, 3.8, 1.8, 1.4, 1.2, 1.1, 1, 0.5, 1, 1.1, 1.2, 1.4, 1.8, 3.8, 11],
+                16: [20, 10, 2.8, 1.9, 1.3, 1.1, 1, 0.9, 0.5, 0.9, 1, 1.1, 1.3, 1.9, 2.8, 10, 20]
             },
             med: {
-                8: [13, 3, 1.3, 0.7, 0.4, 0.7, 1.3, 3, 13],
-                10: [22, 5, 2, 1.4, 0.6, 0.4, 0.6, 1.4, 2, 5, 22],
-                12: [33, 11, 4, 2, 1.1, 0.6, 0.3, 0.6, 1.1, 2, 4, 11, 33],
-                14: [58, 15, 7, 4, 1.9, 1, 0.5, 0.2, 0.5, 1, 1.9, 4, 7, 15, 58],
-                16: [110, 41, 10, 5, 3, 1.5, 1, 0.5, 0.3, 0.5, 1, 1.5, 3, 5, 10, 41, 110]
+                8:  [11.5, 2.9, 1.2, 0.7, 0.4, 0.7, 1.2, 2.9, 11.5],
+                10: [15.5, 4.7, 1.9, 1.3, 0.6, 0.4, 0.6, 1.3, 1.9, 4.7, 15.5],
+                12: [30, 10, 3.6, 1.8, 1, 0.5, 0.3, 0.5, 1, 1.8, 3.6, 10, 30],
+                14: [50, 13, 6, 3.4, 1.6, 0.9, 0.4, 0.2, 0.4, 0.9, 1.6, 3.4, 6, 13, 50],
+                16: [85, 32, 7.7, 3.9, 2.3, 1.2, 0.8, 0.4, 0.2, 0.4, 0.8, 1.2, 2.3, 3.9, 7.7, 32, 85]
             },
             high: {
-                8: [29, 4, 1.5, 0.3, 0.2, 0.3, 1.5, 4, 29],
-                10: [76, 10, 3, 0.9, 0.3, 0.2, 0.3, 0.9, 3, 10, 76],
-                12: [170, 24, 8.1, 2, 0.7, 0.2, 0.2, 0.2, 0.7, 2, 8.1, 24, 170],
-                14: [420, 56, 18, 5, 1.9, 0.3, 0.2, 0.2, 0.2, 0.3, 1.9, 5, 18, 56, 420],
-                16: [1000, 130, 26, 9, 4, 2, 0.2, 0.2, 0.2, 0.2, 0.2, 2, 4, 9, 26, 130, 1000]
+                8:  [24, 3.6, 1.4, 0.3, 0.2, 0.3, 1.4, 3.6, 24],
+                10: [62, 8.1, 2.4, 0.7, 0.25, 0.2, 0.25, 0.7, 2.4, 8.1, 62],
+                12: [98, 16, 5.5, 1.4, 0.5, 0.2, 0.2, 0.2, 0.5, 1.4, 5.5, 16, 98],
+                14: [180, 28, 9, 2.5, 0.95, 0.2, 0.2, 0.2, 0.2, 0.2, 0.95, 2.5, 9, 28, 180],
+                16: [265, 42, 8.5, 2.9, 1.3, 0.7, 0.2, 0.2, 0.2, 0.2, 0.2, 0.7, 1.3, 2.9, 8.5, 42, 265]
             }
         };
+
+        function pickPlinkoBucket(rows) {
+            if (plinkoDryStreak >= PLINKO_PITY_THRESHOLD) {
+                plinkoDryStreak = 0;
+                return Math.random() < 0.5 ? 0 : rows;
+            }
+            const flatten = 0.04;
+            if (Math.random() < flatten) {
+                return Math.floor(Math.random() * (rows + 1));
+            }
+            let idx = 0;
+            for (let i = 0; i < rows; i++) if (Math.random() < 0.5) idx++;
+            return idx;
+        }
+
+        function updatePlinkoBallCount(val) {
+            plinkoBallCount = parseInt(val);
+            document.getElementById('plinkoBallCountValue').innerText = val;
+            document.getElementById('plinkoDropBtnText').innerText = val > 1 ? `Lâcher ${val} Billes` : "Lâcher une Bille";
+            updatePlinkoTotalCost();
+        }
+
+        function updatePlinkoTotalCost() {
+            const bet = parseInt(document.getElementById('plinkoBetInput').value) || 20;
+            const total = bet * plinkoBallCount;
+            document.getElementById('plinkoTotalCost').innerText = total.toLocaleString();
+        }
 
         function setPlinkoRisk(risk) {
             plinkoRisk = risk;
             document.querySelectorAll('.plinko-risk-btn').forEach(b => {
                 b.className = 'plinko-risk-btn py-2 rounded-xl border text-xs font-bold bg-casino-dark border-casino-border text-gray-400';
             });
-            const selected = document.getElementById(`risk-${risk}`);
-            selected.className = 'plinko-risk-btn py-2 rounded-xl border text-xs font-bold bg-purple-950/60 border-purple-500 text-purple-300';
+            document.getElementById(`risk-${risk}`).className = 'plinko-risk-btn py-2 rounded-xl border text-xs font-bold bg-purple-950/60 border-purple-500 text-purple-300';
+            plinkoBalls = [];
+            plinkoDryStreak = 0;
             rebuildPlinkoBoard();
         }
 
         function updatePlinkoRows(val) {
             plinkoRows = parseInt(val);
             document.getElementById('plinkoRowsValue').innerText = val;
+            plinkoBalls = [];
+            plinkoDryStreak = 0;
             rebuildPlinkoBoard();
         }
 
         function rebuildPlinkoBoard() {
             const canvas = document.getElementById('plinkoCanvas');
             if (!canvas) return;
-
             plinkoPegs = [];
             const startY = 45;
             const boardHeight = canvas.height - 100;
             const rowSpacing = boardHeight / plinkoRows;
             const pegRadius = 3.5;
-
             for (let r = 0; r < plinkoRows; r++) {
                 const count = r + 3;
                 const spacing = Math.min((canvas.width - 60) / (plinkoRows + 2), 32);
                 const startX = (canvas.width - (count - 1) * spacing) / 2;
-
                 for (let c = 0; c < count; c++) {
-                    plinkoPegs.push({
-                        x: startX + c * spacing,
-                        y: startY + r * rowSpacing,
-                        radius: pegRadius
-                    });
+                    plinkoPegs.push({ x: startX + c * spacing, y: startY + r * rowSpacing, radius: pegRadius });
                 }
             }
-
             const currentMults = plinkoMultipliers[plinkoRisk][plinkoRows] || plinkoMultipliers['low'][12];
             plinkoBucketsHighlight = new Array(currentMults.length).fill(0);
         }
 
         function initPlinko() {
             rebuildPlinkoBoard();
-            if (!plinkoAnimationId) {
-                runPlinkoLoop();
+            updatePlinkoTotalCost();
+            if (!plinkoAnimationId) runPlinkoLoop();
+        }
+
+        // ✅ NOUVEAU : ALL IN Plinko = 1 bille avec mise = solde total
+        function allInPlinko() {
+            const bal = state.balance;
+            if (bal < 5) { showToast("Solde trop faible pour un All In (5 jetons min).", "error"); return; }
+
+            // Force 1 bille
+            plinkoBallCount = 1;
+            document.getElementById('plinkoBallCountInput').value = 1;
+            document.getElementById('plinkoBallCountValue').innerText = 1;
+            document.getElementById('plinkoDropBtnText').innerText = "Lâcher une Bille";
+
+            // Mise = solde total
+            document.getElementById('plinkoBetInput').value = bal;
+            updatePlinkoTotalCost();
+
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN : 1 bille de ${bal.toLocaleString()} jetons !`, "allin");
+        }
+
+        function dropPlinkoBall() {
+            const bet = parseInt(document.getElementById('plinkoBetInput').value) || 20;
+            const count = plinkoBallCount;
+            const totalCost = bet * count;
+
+            if (state.balance < totalCost) {
+                showToast(`Solde insuffisant (${totalCost.toLocaleString()} requis).`, "error");
+                return;
             }
+
+            updateBalance(-totalCost);
+            addXPForBet(totalCost);
+
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => dropSinglePlinkoBall(bet), i * 120);
+            }
+        }
+
+        function dropSinglePlinkoBall(bet) {
+            AudioEngine.playBounce();
+            const bucketIdx = pickPlinkoBucket(plinkoRows);
+            const canvas = document.getElementById('plinkoCanvas');
+
+            const currentMults = plinkoMultipliers[plinkoRisk][plinkoRows] || plinkoMultipliers['low'][12];
+            const chosenMult = currentMults[bucketIdx];
+            if (chosenMult >= PLINKO_BIG_MULT_THRESHOLD) {
+                plinkoDryStreak = 0;
+            } else {
+                plinkoDryStreak++;
+            }
+
+            plinkoBalls.push({
+                x: canvas.width / 2 + (Math.random() - 0.5) * 24,
+                y: 15,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: 0,
+                bet: bet,
+                targetBucket: bucketIdx,
+                resolved: false,
+                lastSoundTime: 0
+            });
         }
 
         function runPlinkoLoop() {
@@ -1088,10 +952,16 @@
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
 
+            const gravity = 0.22;
+            const restitution = 0.55;
+            const ballRadius = 5.5;
+            const friction = 0.997;
+            const maxVy = 9;
+            const maxVx = 5;
+
             function step() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw Pegs
                 ctx.fillStyle = '#C084FC';
                 ctx.shadowBlur = 8;
                 ctx.shadowColor = '#A855F7';
@@ -1102,7 +972,6 @@
                 });
                 ctx.shadowBlur = 0;
 
-                // Draw Multiplier Buckets
                 const currentMults = plinkoMultipliers[plinkoRisk][plinkoRows] || plinkoMultipliers['low'][12];
                 const bucketWidth = canvas.width / currentMults.length;
                 const bucketY = canvas.height - 45;
@@ -1110,79 +979,80 @@
                 currentMults.forEach((mult, idx) => {
                     const isLit = plinkoBucketsHighlight[idx] > 0;
                     if (isLit) plinkoBucketsHighlight[idx]--;
-
-                    // Gradient Fill for Buckets
                     ctx.fillStyle = isLit ? '#FFD700' : (idx % 2 === 0 ? '#141a29' : '#0d111a');
                     ctx.strokeStyle = '#232d42';
                     ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.roundRect(idx * bucketWidth + 2, bucketY, bucketWidth - 4, 38, 6);
-                    ctx.fill();
-                    ctx.stroke();
-
+                    ctx.fill(); ctx.stroke();
                     ctx.fillStyle = isLit ? '#000000' : (mult >= 10 ? '#FFD700' : mult >= 2 ? '#C084FC' : '#9CA3AF');
                     ctx.font = 'bold 10px Inter';
                     ctx.textAlign = 'center';
                     ctx.fillText(`${mult}x`, idx * bucketWidth + bucketWidth / 2, bucketY + 22);
                 });
 
-                // Physics Engine update for Balls
-                const gravity = 0.18;
-                const bounceRestitution = 0.65;
-                const ballRadius = 5.5;
-
                 for (let i = plinkoBalls.length - 1; i >= 0; i--) {
                     const ball = plinkoBalls[i];
 
-                    // Gravity & velocity updates
                     ball.vy += gravity;
+                    if (ball.vy > maxVy) ball.vy = maxVy;
+                    ball.vx *= friction;
+
+                    const targetX = bucketWidth * ball.targetBucket + bucketWidth / 2;
+                    const remainingY = bucketY - ball.y;
+                    const urgency = Math.max(0, 1 - remainingY / 150);
+                    const dx = targetX - ball.x;
+
+                    let steerStrength = 0.003 + urgency * urgency * 0.09;
+                    ball.vx += dx * steerStrength;
+
+                    if (ball.vx > maxVx) ball.vx = maxVx;
+                    if (ball.vx < -maxVx) ball.vx = -maxVx;
+
                     ball.x += ball.vx;
                     ball.y += ball.vy;
 
-                    // Wall Collisions
-                    if (ball.x - ballRadius < 10) {
-                        ball.x = 10 + ballRadius;
-                        ball.vx = -ball.vx * 0.5;
-                    } else if (ball.x + ballRadius > canvas.width - 10) {
-                        ball.x = canvas.width - 10 - ballRadius;
-                        ball.vx = -ball.vx * 0.5;
+                    if (ball.x - ballRadius < 8) {
+                        ball.x = 8 + ballRadius;
+                        if (ball.vx < 0) ball.vx = Math.abs(ball.vx) * 0.5;
+                    } else if (ball.x + ballRadius > canvas.width - 8) {
+                        ball.x = canvas.width - 8 - ballRadius;
+                        if (ball.vx > 0) ball.vx = -Math.abs(ball.vx) * 0.5;
                     }
 
-                    // Peg Collisions Detection
-                    plinkoPegs.forEach(peg => {
-                        const dx = ball.x - peg.x;
-                        const dy = ball.y - peg.y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
+                    for (const peg of plinkoPegs) {
+                        const dxp = ball.x - peg.x;
+                        const dyp = ball.y - peg.y;
+                        const distSq = dxp * dxp + dyp * dyp;
                         const minDist = ballRadius + peg.radius;
+                        if (distSq < minDist * minDist && distSq > 0.0001) {
+                            const dist = Math.sqrt(distSq);
+                            const nx = dxp / dist;
+                            const ny = dyp / dist;
 
-                        if (dist < minDist) {
-                            // Sound effect
-                            AudioEngine.playBounce();
-
-                            // Normal vector
-                            const nx = dx / (dist || 1);
-                            const ny = dy / (dist || 1);
-
-                            // Push ball out of peg overlap
                             const overlap = minDist - dist;
                             ball.x += nx * overlap;
                             ball.y += ny * overlap;
 
-                            // Radial dot product velocity
-                            const kx = ball.vx;
-                            const ky = ball.vy;
-                            const p = 2 * (nx * kx + ny * ky);
+                            const dot = ball.vx * nx + ball.vy * ny;
+                            if (dot < 0) {
+                                ball.vx -= 2 * dot * nx * restitution;
+                                ball.vy -= 2 * dot * ny * restitution;
+                            }
 
-                            // Bounce physics with lateral random dispersion
-                            ball.vx = (kx - p * nx) * bounceRestitution + (Math.random() - 0.5) * 0.8;
-                            ball.vy = (ky - p * ny) * bounceRestitution;
+                            ball.vx += (Math.random() - 0.5) * 0.7;
+                            if (ball.vy < 0.4) ball.vy = 0.4 + Math.random() * 0.5;
 
-                            // Ensure minimal downward push
-                            if (Math.abs(ball.vy) < 0.5) ball.vy += 0.5;
+                            if (ball.vx > maxVx) ball.vx = maxVx;
+                            if (ball.vx < -maxVx) ball.vx = -maxVx;
+
+                            if (performance.now() - ball.lastSoundTime > 50) {
+                                AudioEngine.playBounce();
+                                ball.lastSoundTime = performance.now();
+                            }
                         }
-                    });
+                    }
 
-                    // Draw Ball
                     ctx.beginPath();
                     ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
                     ctx.fillStyle = '#FFD700';
@@ -1191,20 +1061,24 @@
                     ctx.fill();
                     ctx.shadowBlur = 0;
 
-                    // Bucket Landing Detection
-                    if (ball.y >= bucketY) {
-                        const binIdx = Math.floor(ball.x / bucketWidth);
-                        const clampedIdx = Math.max(0, Math.min(currentMults.length - 1, binIdx));
-                        const mult = currentMults[clampedIdx];
-                        const win = Math.floor(ball.bet * mult);
+                    if (ball.y + ballRadius >= bucketY && !ball.resolved) {
+                        ball.resolved = true;
+                        ball.x = targetX;
 
-                        plinkoBucketsHighlight[clampedIdx] = 20;
-                        if (win > 0) {
+                        const mult = currentMults[ball.targetBucket];
+                        const win = Math.floor(ball.bet * mult);
+                        plinkoBucketsHighlight[ball.targetBucket] = 25;
+
+                        if (win > ball.bet) {
                             AudioEngine.playWin();
                             updateBalance(win);
-                            showToast(`Plinko Multiplicateur ${mult}x ! Gain : +${win} Jetons`, "win");
+                            recordWin(win);
+                            showToast(`Plinko ${mult}x ! Gain net : +${win - ball.bet} Jetons`, "win");
+                        } else if (win > 0) {
+                            updateBalance(win);
+                            showToast(`Plinko ${mult}x. Récupéré : ${win} Jetons`, "info");
                         } else {
-                            showToast(`Plinko Multiplicateur ${mult}x. Pas de gain.`, "info");
+                            showToast(`Plinko ${mult}x. Pas de gain.`, "info");
                         }
                         plinkoBalls.splice(i, 1);
                     }
@@ -1216,47 +1090,21 @@
             step();
         }
 
-        function dropPlinkoBall() {
-            const betInput = document.getElementById('plinkoBetInput');
-            const bet = parseInt(betInput.value) || 20;
-            if (state.balance < bet) {
-                showToast("Solde insuffisant pour lâcher une bille.", "error");
-                return;
-            }
-            updateBalance(-bet);
-            AudioEngine.playBounce();
-
-            const canvas = document.getElementById('plinkoCanvas');
-            const initialX = (canvas.width / 2) + (Math.random() - 0.5) * 12;
-
-            plinkoBalls.push({
-                x: initialX,
-                y: 15,
-                vx: (Math.random() - 0.5) * 1.6, // Initial horizontal random velocity
-                vy: 1.0,
-                bet: bet
-            });
-        }
-
-        /* --- RUSSIAN ROULETTE LOGIC --- */
-        let russianBulletPosition = -1;
-        let russianCurrentChamber = 0;
-        let russianMult = 1.0;
-        let russianActive = false;
+        /* --- RUSSIAN ROULETTE --- */
+        let russianBulletPosition = -1, russianCurrentChamber = 0, russianMult = 1.0, russianActive = false;
+        let russianActiveBet = 0; // ✅ FIX : mémorise la mise réelle de la partie en cours
 
         function resetRussianUI() {
-            russianActive = false;
-            russianMult = 1.0;
+            russianActive = false; russianMult = 1.0; russianActiveBet = 0;
             russianBulletPosition = Math.floor(Math.random() * 6);
             russianCurrentChamber = 0;
-
             document.getElementById('russianMultiplier').innerText = "1.00x";
             document.getElementById('russianPotentialWin').innerText = "0";
             document.getElementById('russianCashoutBtn').disabled = true;
-
+            document.getElementById('russianBetInput').disabled = false;
+            document.getElementById('russianAllInBtn').disabled = false;
             const cylinder = document.getElementById('revolverCylinder');
             cylinder.style.transform = `rotate(0deg)`;
-
             for (let i = 0; i < 6; i++) {
                 const chamber = document.getElementById(`chamber-${i}`);
                 chamber.className = "chamber absolute w-11 h-11 rounded-full bg-gray-900 border-2 border-gray-700 flex items-center justify-center";
@@ -1270,26 +1118,34 @@
             }
         }
 
-        function pullRussianTrigger() {
-            const bet = parseInt(document.getElementById('russianBetInput').value) || 50;
+        // ✅ NOUVEAU : ALL IN Russian = mise = solde (bloqué si partie active)
+        function allInRussian() {
+            if (russianActive) { showToast("Partie en cours : la mise est verrouillée.", "error"); return; }
+            const bal = state.balance;
+            if (bal < 10) { showToast("Solde trop faible pour un All In (10 jetons min).", "error"); return; }
+            document.getElementById('russianBetInput').value = bal;
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN prêt : ${bal.toLocaleString()} jetons !`, "allin");
+        }
 
+        function pullRussianTrigger() {
             if (!russianActive) {
+                const bet = parseInt(document.getElementById('russianBetInput').value) || 50;
                 if (state.balance < bet) return showToast("Solde insuffisant.", "error");
-                updateBalance(-bet);
-                russianActive = true;
-                russianMult = 1.2;
+                updateBalance(-bet); addXPForBet(bet);
+                russianActive = true; russianMult = 1.2;
+                russianActiveBet = bet; // ✅ FIX : mémorise la mise
                 document.getElementById('russianCashoutBtn').disabled = false;
+                document.getElementById('russianBetInput').disabled = true; // ✅ FIX : bloque la modif
+                document.getElementById('russianAllInBtn').disabled = true; // ✅ FIX
             }
 
             const cylinder = document.getElementById('revolverCylinder');
             cylinder.classList.add('spinning-cylinder');
-
             setTimeout(() => {
                 cylinder.classList.remove('spinning-cylinder');
                 russianCurrentChamber = (russianCurrentChamber + 1) % 6;
-                const rotationDeg = russianCurrentChamber * 60;
-                cylinder.style.transform = `rotate(${rotationDeg}deg)`;
-
+                cylinder.style.transform = `rotate(${russianCurrentChamber * 60}deg)`;
                 if (russianCurrentChamber === russianBulletPosition) {
                     AudioEngine.playShot();
                     showToast("BOOM ! La cartouche a explosé. Vous avez perdu votre mise.", "error");
@@ -1297,7 +1153,7 @@
                 } else {
                     AudioEngine.playTick();
                     russianMult = parseFloat((russianMult + 0.6).toFixed(2));
-                    const potentialWin = Math.floor(bet * russianMult);
+                    const potentialWin = Math.floor(russianActiveBet * russianMult); // ✅ FIX : utilise la mise verrouillée
                     document.getElementById('russianMultiplier').innerText = `${russianMult.toFixed(2)}x`;
                     document.getElementById('russianPotentialWin').innerText = potentialWin.toLocaleString();
                     showToast("CLIC ! Chambre vide. Multiplicateur augmenté !", "win");
@@ -1306,165 +1162,147 @@
         }
 
         function cashoutRussian() {
-            const bet = parseInt(document.getElementById('russianBetInput').value) || 50;
-            const win = Math.floor(bet * russianMult);
-            AudioEngine.playWin();
-            updateBalance(win);
+            const win = Math.floor(russianActiveBet * russianMult); // ✅ FIX : mise verrouillée
+            AudioEngine.playWin(); updateBalance(win); recordWin(win);
             showToast(`Victoire ! Encaissement réussi : +${win} Jetons !`, "win");
             resetRussianUI();
         }
 
-        /* --- NEON SLOTS LOGIC --- */
+        /* --- SLOTS --- */
         const SLOT_SYMBOLS = ['🍒', '🍋', '🔔', '💎', '7️⃣'];
+
+        // ✅ NOUVEAU : ALL IN Slots
+        function allInSlots() {
+            const bal = state.balance;
+            if (bal < 5) { showToast("Solde trop faible pour un All In (5 jetons min).", "error"); return; }
+            document.getElementById('slotsBetInput').value = bal;
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN : ${bal.toLocaleString()} jetons sur le spin !`, "allin");
+        }
+
         function spinSlots() {
-            const betInput = document.getElementById('slotsBetInput');
-            const bet = parseInt(betInput.value) || 20;
+            const bet = parseInt(document.getElementById('slotsBetInput').value) || 20;
             if (state.balance < bet) return showToast("Solde insuffisant pour ce spin.", "error");
-
-            updateBalance(-bet);
+            updateBalance(-bet); addXPForBet(bet);
             const grid = [];
-
-            for (let i = 0; i < 9; i++) {
-                const el = document.getElementById(`slot-${i}`);
-                el.classList.add('blur-spinning');
-            }
-
+            for (let i = 0; i < 9; i++) document.getElementById(`slot-${i}`).classList.add('blur-spinning');
             setTimeout(() => {
                 for (let i = 0; i < 9; i++) {
                     const sym = SLOT_SYMBOLS[Math.floor(Math.random() * SLOT_SYMBOLS.length)];
                     grid.push(sym);
                     const el = document.getElementById(`slot-${i}`);
-                    el.classList.remove('blur-spinning');
-                    el.innerText = sym;
+                    el.classList.remove('blur-spinning'); el.innerText = sym;
                 }
-
                 if (grid[3] === grid[4] && grid[4] === grid[5]) {
                     const win = bet * 10;
-                    AudioEngine.playWin();
-                    updateBalance(win);
+                    AudioEngine.playWin(); updateBalance(win); recordWin(win);
                     showToast(`SUPER LIGNE ALIGNÉE ! +${win} Jetons !`, "win");
-                } else {
-                    AudioEngine.playTick();
-                }
+                } else AudioEngine.playTick();
             }, 600);
         }
 
-        /* --- BLACKJACK 21 LOGIC --- */
+        /* --- BLACKJACK --- */
         let bjDeck = [], bjPlayer = [], bjDealer = [];
+
+        // ✅ NOUVEAU : ALL IN Blackjack
+        function allInBlackjack() {
+            const bal = state.balance;
+            if (bal < 10) { showToast("Solde trop faible pour un All In (10 jetons min).", "error"); return; }
+            document.getElementById('bjBetInput').value = bal;
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN prêt : ${bal.toLocaleString()} jetons !`, "allin");
+        }
+
         function startBlackjack() {
             const bet = parseInt(document.getElementById('bjBetInput').value) || 50;
             if (state.balance < bet) return showToast("Solde insuffisant.", "error");
-            
-            updateBalance(-bet);
+            updateBalance(-bet); addXPForBet(bet);
             bjDeck = [2,3,4,5,6,7,8,9,10,10,10,10,11];
             bjPlayer = [drawCard(), drawCard()];
             bjDealer = [drawCard(), drawCard()];
-
             document.getElementById('bjHitBtn').disabled = false;
             document.getElementById('bjStandBtn').disabled = false;
             document.getElementById('bjDealBtn').disabled = true;
-
+            document.getElementById('bjAllInBtn').disabled = true;
             renderBJ();
         }
-
-        function drawCard() {
-            return bjDeck[Math.floor(Math.random() * bjDeck.length)];
-        }
-
-        function getScore(hand) {
-            return hand.reduce((a, b) => a + b, 0);
-        }
-
+        function drawCard() { return bjDeck[Math.floor(Math.random() * bjDeck.length)]; }
+        function getScore(hand) { return hand.reduce((a, b) => a + b, 0); }
         function renderBJ() {
             document.getElementById('playerHand').innerHTML = bjPlayer.map(c => `<div class="w-14 h-20 bg-casino-card border border-gold/40 rounded-xl flex items-center justify-center font-extrabold text-gold text-lg shadow-lg animate-toast">${c}</div>`).join('');
             document.getElementById('dealerHand').innerHTML = bjDealer.map((c, i) => `<div class="w-14 h-20 bg-casino-card border border-gold/40 rounded-xl flex items-center justify-center font-extrabold text-gold text-lg shadow-lg animate-toast">${i === 0 ? c : '?'}</div>`).join('');
             document.getElementById('playerScore').innerText = `Score: ${getScore(bjPlayer)}`;
         }
-
         function hitBlackjack() {
-            bjPlayer.push(drawCard());
-            renderBJ();
-            if (getScore(bjPlayer) > 21) {
-                showToast("Dépassé 21 ! La banque gagne.", "error");
-                endBJ();
-            }
+            bjPlayer.push(drawCard()); renderBJ();
+            if (getScore(bjPlayer) > 21) { showToast("Dépassé 21 ! La banque gagne.", "error"); endBJ(); }
         }
-
         function standBlackjack() {
             let dScore = getScore(bjDealer);
-            while (dScore < 17) {
-                bjDealer.push(drawCard());
-                dScore = getScore(bjDealer);
-            }
+            while (dScore < 17) { bjDealer.push(drawCard()); dScore = getScore(bjDealer); }
             const pScore = getScore(bjPlayer);
             renderBJ();
             document.getElementById('dealerScore').innerText = `Score: ${dScore}`;
-
             const bet = parseInt(document.getElementById('bjBetInput').value) || 50;
             if (dScore > 21 || pScore > dScore) {
-                AudioEngine.playWin();
-                updateBalance(bet * 2);
+                AudioEngine.playWin(); updateBalance(bet * 2); recordWin(bet * 2);
                 showToast(`Victoire au Blackjack ! +${bet * 2} Jetons`, "win");
             } else if (pScore === dScore) {
                 updateBalance(bet);
                 showToast("Égalité. Votre mise est restituée.", "info");
-            } else {
-                showToast("Le Croupier gagne la main.", "error");
-            }
+            } else showToast("Le Croupier gagne la main.", "error");
             endBJ();
         }
-
         function endBJ() {
             document.getElementById('bjHitBtn').disabled = true;
             document.getElementById('bjStandBtn').disabled = true;
             document.getElementById('bjDealBtn').disabled = false;
+            document.getElementById('bjAllInBtn').disabled = false;
         }
 
-        /* --- VIDEO POKER JACKS OR BETTER WITH HOLD LOGIC --- */
-        let pokerState = 'deal'; // 'deal' or 'draw'
-        let pokerHand = [];
-        let pokerHold = [false, false, false, false, false];
+        /* --- VIDEO POKER --- */
+        let pokerState = 'deal', pokerHand = [], pokerHold = [false, false, false, false, false];
         const POKER_RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+
+        // ✅ NOUVEAU : ALL IN Poker
+        function allInPoker() {
+            if (pokerState !== 'deal') { showToast("Terminez la main en cours d'abord.", "error"); return; }
+            const bal = state.balance;
+            if (bal < 5) { showToast("Solde trop faible pour un All In (5 jetons min).", "error"); return; }
+            document.getElementById('pokerBetInput').value = bal;
+            AudioEngine.playAllIn();
+            showToast(`🔥 ALL IN prêt : ${bal.toLocaleString()} jetons !`, "allin");
+        }
 
         function handlePokerAction() {
             const btn = document.getElementById('pokerActionBtn');
-            const betInput = document.getElementById('pokerBetInput');
-            const bet = parseInt(betInput.value) || 25;
-
+            const bet = parseInt(document.getElementById('pokerBetInput').value) || 25;
             if (pokerState === 'deal') {
                 if (state.balance < bet) return showToast("Solde insuffisant.", "error");
-                updateBalance(-bet);
-
+                updateBalance(-bet); addXPForBet(bet);
                 pokerHand = Array.from({length: 5}, () => POKER_RANKS[Math.floor(Math.random() * POKER_RANKS.length)]);
                 pokerHold = [false, false, false, false, false];
-
                 renderPokerHand();
                 pokerState = 'draw';
                 btn.innerText = "Tirer (Draw)";
+                document.getElementById('pokerAllInBtn').disabled = true;
                 document.getElementById('pokerStatus').innerText = "Cliquez sur les cartes à GARDER (HOLD), puis tirez !";
             } else {
-                // Replace unheld cards
                 for (let i = 0; i < 5; i++) {
-                    if (!pokerHold[i]) {
-                        pokerHand[i] = POKER_RANKS[Math.floor(Math.random() * POKER_RANKS.length)];
-                    }
+                    if (!pokerHold[i]) pokerHand[i] = POKER_RANKS[Math.floor(Math.random() * POKER_RANKS.length)];
                 }
-
                 renderPokerHand();
                 evaluatePokerHand(bet);
-
                 pokerState = 'deal';
                 btn.innerText = "Distribuer";
+                document.getElementById('pokerAllInBtn').disabled = false;
             }
         }
-
         function togglePokerHold(idx) {
             if (pokerState !== 'draw') return;
             pokerHold[idx] = !pokerHold[idx];
-            renderPokerHand();
-            AudioEngine.playTick();
+            renderPokerHand(); AudioEngine.playTick();
         }
-
         function renderPokerHand() {
             const container = document.getElementById('pokerHand');
             container.innerHTML = pokerHand.map((r, i) => `
@@ -1476,36 +1314,19 @@
                 </div>
             `).join('');
         }
-
         function evaluatePokerHand(bet) {
             const counts = {};
             pokerHand.forEach(r => counts[r] = (counts[r] || 0) + 1);
             const values = Object.values(counts);
-
-            let winMultiplier = 0;
-            let handName = "";
-
-            if (values.includes(4)) {
-                winMultiplier = 25;
-                handName = "Carré !";
-            } else if (values.includes(3) && values.includes(2)) {
-                winMultiplier = 9;
-                handName = "Full House !";
-            } else if (values.includes(3)) {
-                winMultiplier = 3;
-                handName = "Brelan !";
-            } else if (values.filter(v => v === 2).length === 2) {
-                winMultiplier = 2;
-                handName = "Double Paire !";
-            } else if (counts['J'] >= 2 || counts['Q'] >= 2 || counts['K'] >= 2 || counts['A'] >= 2) {
-                winMultiplier = 1;
-                handName = "Paire Valets ou Mieux !";
-            }
-
+            let winMultiplier = 0, handName = "";
+            if (values.includes(4)) { winMultiplier = 25; handName = "Carré !"; }
+            else if (values.includes(3) && values.includes(2)) { winMultiplier = 9; handName = "Full House !"; }
+            else if (values.includes(3)) { winMultiplier = 3; handName = "Brelan !"; }
+            else if (values.filter(v => v === 2).length === 2) { winMultiplier = 2; handName = "Double Paire !"; }
+            else if (counts['J'] >= 2 || counts['Q'] >= 2 || counts['K'] >= 2 || counts['A'] >= 2) { winMultiplier = 1; handName = "Paire Valets ou Mieux !"; }
             if (winMultiplier > 0) {
                 const win = bet * (winMultiplier + 1);
-                AudioEngine.playWin();
-                updateBalance(win);
+                AudioEngine.playWin(); updateBalance(win); recordWin(win);
                 showToast(`${handName} Gain : +${win} Jetons !`, "win");
                 document.getElementById('pokerStatus').innerText = `${handName} Gagné +${win} Jetons !`;
             } else {
@@ -1514,7 +1335,6 @@
             }
         }
 
-        /* --- ON LOAD INITIALIZATION --- */
         window.onload = () => {
             buildRouletteGrid();
             drawRouletteWheel(0);
