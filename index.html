@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vegas Virtual Hub - High-End Neon Casino</title>
 
-    <!-- 🔥 FIREBASE SDK (compat, à charger AVANT tout autre script) -->
+    <!-- 🔥 FIREBASE SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1458,6 +1458,8 @@
         let leaderboardCache = { xp: null, balance: null, maxWin: null, ts: 0 };
         let currentLbTab = 'xp';
         let currentAuthMode = 'login';
+        // ✅ FIX : flag pour empêcher l'auto-création d'invité pendant une transition auth
+        let suppressAnonSignIn = false;
 
         // -------- SYNC DEBOUNCE --------
         function scheduleSync() {
@@ -1508,6 +1510,7 @@
         };
 
         // -------- AUTH STATE --------
+        // ✅ FIX : empêche l'auto-anonyme pendant une transition et attend un délai
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 currentUser = user;
@@ -1519,12 +1522,23 @@
                     console.error('Erreur profil:', e);
                 }
             } else {
-                try {
-                    await auth.signInAnonymously();
-                } catch (e) {
-                    console.error('Auth anonyme échouée:', e);
-                    showToast("Erreur de connexion au serveur.", "error");
+                // Ne pas créer d'invité pendant une transition (login email en cours)
+                if (suppressAnonSignIn) {
+                    console.log('Anon sign-in supprimé (transition en cours)');
+                    return;
                 }
+
+                // Petit délai pour laisser Firebase finir de restaurer une éventuelle session
+                setTimeout(async () => {
+                    if (!auth.currentUser && !suppressAnonSignIn) {
+                        try {
+                            await auth.signInAnonymously();
+                        } catch (e) {
+                            console.error('Auth anonyme échouée:', e);
+                            showToast("Erreur de connexion au serveur.", "error");
+                        }
+                    }
+                }, 600);
             }
         });
 
@@ -1693,14 +1707,19 @@
             if (!currentUser) throw new Error("Session expirée, rechargez la page.");
 
             const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+
+            // ✅ FIX : bloque l'auto-anonyme pendant le lien de compte
+            suppressAnonSignIn = true;
             try {
                 await currentUser.linkWithCredential(credential);
             } catch (e) {
+                suppressAnonSignIn = false;
                 if (e.code === 'auth/email-already-in-use') {
                     throw new Error("Cet email est déjà utilisé. Essaie de te connecter.");
                 }
                 throw e;
             }
+            setTimeout(() => { suppressAnonSignIn = false; }, 4000);
 
             try {
                 await pseudoRef.set({
@@ -1725,13 +1744,16 @@
             showToast(`Bienvenue ${pseudo} ! Compte créé.`, "win");
         }
 
-        // ✅ FIX : connexion simplifiée (pas de suppression de l'anonyme)
+        // ✅ FIX : connexion simplifiée + flag anti-race-condition
         async function loginWithEmail(email, password) {
-            // On ne supprime PAS le compte anonyme :
-            // Firebase gère le changement de session automatiquement, et l'ancien
-            // compte anonyme restera dans Firestore mais ne polluera pas le classement
-            // car on filtre isAnonymous == false dans la requête.
-            await auth.signInWithEmailAndPassword(email, password);
+            suppressAnonSignIn = true;
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+            } catch (e) {
+                suppressAnonSignIn = false;
+                throw e;
+            }
+            setTimeout(() => { suppressAnonSignIn = false; }, 4000);
         }
 
         async function logoutUser() {
@@ -1777,7 +1799,6 @@
             await renderLeaderboard(tab);
         }
 
-        // ✅ FIX : filtre les comptes anonymes du classement
         async function renderLeaderboard(type) {
             const container = document.getElementById('leaderboardList');
             container.innerHTML = `<div class="text-center text-gray-500 text-xs py-8"><i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i><br>Chargement...</div>`;
@@ -1798,7 +1819,7 @@
                     leaderboardCache.ts = now;
                 } catch (e) {
                     console.error(e);
-                    container.innerHTML = `<div class="text-center text-red-400 text-xs py-8 px-4">Erreur de chargement.<br><span class="text-[10px] text-gray-500">Si tu vois cette erreur pour la première fois, ouvre la console (F12) et clique sur le lien pour créer l'index composite Firestore.</span></div>`;
+                    container.innerHTML = `<div class="text-center text-red-400 text-xs py-8 px-4">Erreur de chargement.<br><span class="text-[10px] text-gray-500">Si c'est la première fois, ouvre la console (F12) et clique sur le lien pour créer l'index composite Firestore.</span></div>`;
                     return;
                 }
             }
